@@ -5,11 +5,14 @@ public class CyclesGoldenFibo
   public static boolean containsDigit(int number, int digit)
 //   будет возвращать true, если число number содержит цифру digit.
   {
+    if (number == digit) return true;
+
     int n = number;
     while (n > 0) {
       if (digit == (n % 10)) return true;
       n = n / 10;
     }
+
     return false;
   }
 
