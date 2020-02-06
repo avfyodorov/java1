@@ -7,6 +7,7 @@ public class Z
     System.out.println(factorial(4));
   }
 
+
   static long factorial(long n)
   {
     long res = 1;
@@ -43,3 +44,40 @@ public class Z
     return Integer.parseInt("0" + n1 + n2);
   }
 }
+/*
+class Point2D
+{
+  private int x;
+  private int y;
+
+  Point2D(int x, int y)
+  {
+    this.x=x;
+    this.y=y;
+  }
+
+  @Override
+  public String toString()
+  {
+    return ""+x+","+y;
+  }
+}
+
+class Point3D extends Point2D
+{
+  private int z;
+
+  Point3D(int x, int y, int z)
+  {
+    super(x,y);
+    this.z=z;
+  }
+
+  @Override
+  public String toString()
+  {
+    return super.toString()+","+z;
+  }
+
+}
+*/
