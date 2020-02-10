@@ -5,6 +5,9 @@ public class Z
 //    System.out.println(addAsStrings(1,3));
 //    System.out.println(textGrade(443));
     System.out.println(factorial(4));
+
+    byte value = 1;
+    int result = 0b0000_0001 & value;
   }
 
 
