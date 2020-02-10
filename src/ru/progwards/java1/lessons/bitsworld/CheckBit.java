@@ -15,14 +15,14 @@ public class CheckBit
 {
   public static int checkBit(byte value, int bitNumber)
   {
-    if(bitNumber<0 || bitNumber>7)
+    if (bitNumber < 0 || bitNumber > 7)
       return 0;
 
-    return (1 << bitNumber) & value;
+    return ((1 << bitNumber) & value) == 0 ? 0 : 1;
   }
 
   public static void main(String[] args)
   {
-    System.out.println(checkBit((byte)0b10100101,38));
+    System.out.println(checkBit((byte) 0b11011000, 3));
   }
 }
