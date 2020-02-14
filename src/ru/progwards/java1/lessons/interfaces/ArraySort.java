@@ -25,7 +25,7 @@ public class ArraySort
     for (int i = 0; i < a.length; i++)
       for (int j = i + 1; j < a.length; j++)
       {
-        Food food = (Food) a[i];
+        Animal food = (Animal) a[i];
         if (food.compareWeight(a[j]) == CompareWeight.CompareResult.GREATER)
         {
           z = a[i];
@@ -60,19 +60,28 @@ public class ArraySort
     System.out.println("After  :  " + Arrays.toString(a1));
 
 //=================
-    Food[] arr = {
-            new Food(59),
-            new Food(19),
-            new Food(60),
-            new Food(5),
-            new Food(8),
+    Animal[] arr = {
+            new Animal(59),
+            new Animal(19),
+            new Animal(60),
+            new Animal(5),
+            new Animal(8),
     };
 
     System.out.println("\n CompareWeight");
 
-    System.out.println("Before : "+Arrays.deepToString(arr));
+    System.out.println("Before : "+debugPrint(arr));
     sort(arr);
-    System.out.println("After  : "+Arrays.deepToString(arr));
+    System.out.println("After  : "+debugPrint(arr));
 
+  }
+private static   String debugPrint(Animal[] arr)
+  {
+    String res="";
+    for (Animal a: arr)
+    {
+      res=res+a.getWeight()+", ";
+    }
+    return res;
   }
 }
