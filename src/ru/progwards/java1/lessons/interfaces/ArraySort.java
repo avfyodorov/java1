@@ -26,7 +26,7 @@ public class ArraySort
       for (int j = i + 1; j < a.length; j++)
       {
         Food food = (Food) a[i];
-        if (food.compareWeight(a[j]) == CompareResult.GREATER)
+        if (food.compareWeight(a[j]) == CompareWeight.CompareResult.GREATER)
         {
           z = a[i];
           a[i] = a[j];
