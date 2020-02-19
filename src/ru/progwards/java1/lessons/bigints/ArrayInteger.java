@@ -35,6 +35,11 @@ public class ArrayInteger
     return n >= 0 && n < digits.length ? digits[n] : 0;
   }
 
+  public int getArrayLength()
+  {
+    return digits.length;
+  }
+
   public boolean isSign()
   {
     return sign;
@@ -89,6 +94,12 @@ public class ArrayInteger
 
   public boolean add(ArrayInteger num)
   {
+    if (digits.length < num.getArrayLength())
+    {
+      Arrays.fill(digits, (byte) 0);
+      sign = true;
+      return false;
+    }
 
     byte o = 0;
     for (int i = 0; i < digits.length; i++)
@@ -112,16 +123,24 @@ public class ArrayInteger
 
   public static void main(String[] args)
   {
-    ArrayInteger a = new ArrayInteger(3);
-    a.fromInt(BigInteger.valueOf(159));
+    ArrayInteger a = new ArrayInteger(15);
+    a.fromInt(new BigInteger("100000000000"));
     a.debugPrint();
 
     System.out.println(a.toInt().toString());
 
-    ArrayInteger b = new ArrayInteger(3);
-    b.fromInt(BigInteger.valueOf(959));
+    ArrayInteger b = new ArrayInteger(7);
+    b.fromInt(new BigInteger("6789610"));
+    b.debugPrint();
 
-    System.out.println(a.add(b));
-    System.out.println(a.toInt().toString());
+    ArrayInteger c = new ArrayInteger(24);
+    c.fromInt(new BigInteger("922337203685477580746043"));
+    c.debugPrint();
+
+    System.out.println(b.add(c));
+    b.debugPrint();
+//    System.out.println(a.toInt().toString());
+
   }
+
 }
