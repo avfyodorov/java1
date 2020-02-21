@@ -8,11 +8,8 @@ package ru.progwards.java1.lessons.io1;
 // code[(int)symbol] выходного файла. В случае ошибок, в файл с именем logName
 // вывести название ошибки через метод класса Exception - getMessage()
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Coder
 {
@@ -36,6 +33,7 @@ public class Coder
     }
   }
 
+  /*
   public static void codeFile(String inFileName, String outFileName,
                               char[] code, String logName)
   {
@@ -75,16 +73,52 @@ public class Coder
       toLog(logName, e.getMessage());
     }
   }
+*/
+
+  public static void codeFile(String inFileName, String outFileName,
+                              char[] code, String logName)
+  {
+    try
+    {
+      FileInputStream reader = new FileInputStream(inFileName);
+      FileOutputStream writer = new FileOutputStream(outFileName);
+
+      try
+      {
+        byte[] bytes = reader.readAllBytes();
+//        System.out.println(Arrays.toString(bytes));
+
+        for (int i = 0; i < bytes.length; i++)
+          if (bytes[i] < code.length)
+            bytes[i] = (byte) code[bytes[i]];
+          else
+            bytes[i] = (byte) '*';
+
+        writer.write(bytes);
+//        System.out.println(Arrays.toString(bytes));
+
+
+      } finally
+      {
+        writer.close();
+        reader.close();
+      }
+    } catch (IOException e)
+    {
+      toLog(logName, e.getMessage());
+    }
+  }
 
   public static void main(String[] args)
   {
 //=====
     char[] code = new char[256];
     Arrays.fill(code, '*');
+
     for (int i = 48; i < 58; i++)
       code[i] = (char) (i + 16);
 //-----
 
-    codeFile("qyqy7.txt", "dydy.txt", code, "log.txt");
+    codeFile("qyqy9.txt", "dydy.txt", code, "log.txt");
   }
 }
