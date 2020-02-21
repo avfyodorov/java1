@@ -33,48 +33,6 @@ public class Coder
     }
   }
 
-  /*
-  public static void codeFile(String inFileName, String outFileName,
-                              char[] code, String logName)
-  {
-    try
-    {
-      FileReader reader = new FileReader(inFileName);
-      Scanner scanner = new Scanner(reader);
-
-      FileWriter writer = new FileWriter(outFileName);
-
-      StringBuilder str_out = new StringBuilder();
-
-      try
-      {
-        while (scanner.hasNextLine())
-        {
-          String str_in = scanner.nextLine();
-          str_out.delete(0, str_out.length());
-
-          for (int i = 0; i < str_in.length(); i++)
-            if ((int) (str_in.charAt(i)) < code.length)
-              str_out.append(code[(int) str_in.charAt(i)]);
-            else
-              str_out.append('*');
-
-          str_out.append("\n");
-          writer.write(str_out.toString());
-
-        }
-      } finally
-      {
-        writer.close();
-        reader.close();
-      }
-    } catch (IOException e)
-    {
-      toLog(logName, e.getMessage());
-    }
-  }
-*/
-
   public static void codeFile(String inFileName, String outFileName,
                               char[] code, String logName)
   {
@@ -89,10 +47,10 @@ public class Coder
 //        System.out.println(Arrays.toString(bytes));
 
         for (int i = 0; i < bytes.length; i++)
-          if (bytes[i] < code.length)
+//          if (bytes[i] < code.length)
             bytes[i] = (byte) code[bytes[i]];
-          else
-            bytes[i] = (byte) '*';
+//          else
+//            bytes[i] = (byte) '*';
 
         writer.write(bytes);
 //        System.out.println(Arrays.toString(bytes));
@@ -103,10 +61,11 @@ public class Coder
         writer.close();
         reader.close();
       }
-    } catch (IOException e)
+    } catch (IOException | ArrayIndexOutOfBoundsException e)
     {
       toLog(logName, e.getMessage());
     }
+
   }
 
   public static void main(String[] args)

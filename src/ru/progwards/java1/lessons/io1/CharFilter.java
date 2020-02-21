@@ -37,7 +37,7 @@ public class CharFilter
           if (filter.indexOf(str_in.charAt(i)) == -1)
             str_out.append(str_in.charAt(i));
 
-        str_out.append("\n");
+//        str_out.append("\n");
         writer.write(str_out.toString());
       }
 
