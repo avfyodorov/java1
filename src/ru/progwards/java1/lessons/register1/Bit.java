@@ -16,6 +16,16 @@ public class Bit
     this.value = value;
   }
 
+  public int get()
+  {
+    return value ? 1 : 0;
+  }
+
+  public void set(int v)
+  {
+    value = (v == 0) ? false : true;
+  }
+
   @Override
   public String toString()// - должен выводить 1 или 0
   {
