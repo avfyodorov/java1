@@ -10,9 +10,9 @@ public class Summator
 {
   public static boolean add(ByteRegister value1, ByteRegister value2)
   {
-    int sum=value1.getValue()+value2.getValue();
-    value1.setValue((byte)sum);
-    return sum<256;
+    int sum = value1.getValue() + value2.getValue();
+    value1.setValue((byte) sum);
+    return sum < 256;
   }
 
   public static void main(String[] args)
@@ -23,7 +23,7 @@ public class Summator
     System.out.println(a);
     System.out.println(a.toDecString());
 
-    System.out.println(add(a,b));
+    System.out.println(add(a, b));
 
     System.out.println(a);
     System.out.println(a.toDecString());
