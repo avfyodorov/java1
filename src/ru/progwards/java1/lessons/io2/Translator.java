@@ -26,13 +26,13 @@ public class Translator
   {
     this.inLang = inLang;
     this.outLang = outLang;
-
-    if (inLang.length != outLang.length)
-      throw new ArrayIndexOutOfBoundsException("Размеры словарей не совпадают.");
   }
 
   public String translate(String sentence)
   {
+    if (inLang.length != outLang.length)
+      throw new ArrayIndexOutOfBoundsException("Размеры словарей не совпадают.");
+
     String res = "";
     String finded = "";
 
@@ -80,7 +80,7 @@ public class Translator
         res = res + " " + items[i];
 
     }
-    return res;
+    return res.trim();
   }
 
   public static void main(String[] args)

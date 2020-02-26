@@ -71,7 +71,7 @@ public class Censor
       f.seek(0);
       f.write(res.getBytes());
 
-    } catch (IOException e)
+    } catch (Exception e)
     {
       throw new CensorException(e.getMessage(), inoutFileName);
     }
