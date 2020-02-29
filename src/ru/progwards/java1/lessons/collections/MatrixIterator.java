@@ -22,22 +22,39 @@ public class MatrixIterator<T> implements Iterator<T>
   @Override
   public boolean hasNext()
   {
-    return cur < (array.length * array[0].length);
+    int size=0;
+    for (int i = 0; i < array.length; i++)
+    size=size+array[0].length;
+    return cur < size;
   }
 
   @Override
   public T next()
   {
-    int i = cur / array[0].length;
-    int j = cur % array[0].length;
+  //  int i = cur / array[0].length;
+  //  int j = cur % array[0].length;
+    int x=0;
+    int y=0;
+    int pos=cur;
+
+    for (int i = 0; i < array.length; i++)
+    {
+      if (pos>=array[i].length)
+        pos=pos-array[i].length;
+      else
+      {
+    x=i;y=pos%array[i].length;break;
+      }
+    }
+
     cur++;
-    return array[i][j];
+    return array[x][y];
   }
 
   public static void main(String[] args)
   {
-    Integer[][] arr = {new Integer[]{1, 2, 3}, new Integer[]{4, 5, 6}};
-    System.out.println(arr.length + " " + arr[0].length);
+    Integer[][] arr = {new Integer[]{1, 2, 3}, new Integer[]{4, 5}, new Integer[]{6, 7,8,9}};
+//    System.out.println(arr.length + " " + arr[0].length);
 
     System.out.println(arr[0][0] + " " + arr[0][1] + " " + arr[0][2]);
 

@@ -39,8 +39,8 @@ public class Creator
   {
     Collection<Integer> list = new ArrayList<>();
 
-    for (int i = 0; i < n * 3; i++)
-      list.add(n * 6 - i * 2 - 1);
+    for (int i = 0; i < n; i++)
+      list.add(n * 2 - i * 2 - 1);
 
     if (list.size() < 1)
       list.add(1);
@@ -69,7 +69,7 @@ public class Creator
   public static void main(String[] args)
   {
     System.out.println("чётные числа начиная с 2-х -- " + fillEven(10));
-    System.out.println("нечётные убывающие n*3 -- " + fillOdd(4));
+    System.out.println("нечётные убывающие n*3 -- " + fillOdd(17));
     System.out.println("индекс квадрат куб n*3 -- " + fill3(3));
 
   }
