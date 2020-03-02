@@ -22,28 +22,32 @@ public class MatrixIterator<T> implements Iterator<T>
   @Override
   public boolean hasNext()
   {
-    int size=0;
+    int size = 0;
     for (int i = 0; i < array.length; i++)
-    size=size+array[0].length;
-    return cur < size;
+      size = size + array[0].length;
+    return cur < size - 1;
   }
 
   @Override
   public T next()
   {
-  //  int i = cur / array[0].length;
-  //  int j = cur % array[0].length;
-    int x=0;
-    int y=0;
-    int pos=cur;
+    //  int i = cur / array[0].length;
+    //  int j = cur % array[0].length;
+    int x = 0;
+    int y = 0;
+    int pos = cur;
 
     for (int i = 0; i < array.length; i++)
     {
-      if (pos>=array[i].length)
-        pos=pos-array[i].length;
+//если не попадает в тек.массив -- взять следующий
+      if (pos >= array[i].length)
+        pos = pos - array[i].length;
       else
       {
-    x=i;y=pos%array[i].length;break;
+//строка - ном.тек.массива, столбец - остаток
+        x = i;
+        y = pos % array[i].length;
+        break;
       }
     }
 
@@ -53,14 +57,27 @@ public class MatrixIterator<T> implements Iterator<T>
 
   public static void main(String[] args)
   {
-    Integer[][] arr = {new Integer[]{1, 2, 3}, new Integer[]{4, 5}, new Integer[]{6, 7,8,9}};
+//    Integer[][] arr = {new Integer[]{1, 2, 3}, new Integer[]{4, 5}, new Integer[]{6, 7,8,9}};
 //    System.out.println(arr.length + " " + arr[0].length);
 
+    String[][] arr = {{"алекс", "васил", "григо"}, {"дмитр", "дмитр", "григо"}, {"дмитр", "васил"}};
     System.out.println(arr[0][0] + " " + arr[0][1] + " " + arr[0][2]);
 
+    int n = 1;
     MatrixIterator mi = new MatrixIterator(arr);
     while (mi.hasNext())
-      System.out.print(mi.next() + " ");
-    System.out.println("");
+      System.out.println("" + (n++) + " " + mi.hasNext() + " " + mi.next());
+    //System.out.println("");
   }
 }
+// Тест "Класс MatrixIterator" не пройден. Класс работает неверно.
+//
+// В конструктор передан двумерный массив содержащий 3 массива.
+// Массив 1, значения: Александр,Василий,Григорий.
+// Массив 2, значения: Дмитрий,Дмитрий,Григорий.
+// Массив 3, значения: Дмитрий,Василий.
+//
+// Текущий порядковый номер вызова : 8.
+// Вызван метод hasNext(), возвращено: true. Ожидалось: true.
+// Вызван метод next(), возвращено: Василий. Ожидалось: Василий.
+// Вызван метод hasNext(), возвращено: true. Ожидалось: false.
