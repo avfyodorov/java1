@@ -12,20 +12,22 @@ public class MatrixIterator<T> implements Iterator<T>
 {
   private T[][] array;
   private int cur;
+  private int arr_size;
 
   MatrixIterator(T[][] array)
   {
     this.array = array;
     cur = 0;
+
+    arr_size = 0;
+    for (int i = 0; i < array.length; i++)
+      arr_size = arr_size + array[i].length;
   }
 
   @Override
   public boolean hasNext()
   {
-    int size = 0;
-    for (int i = 0; i < array.length; i++)
-      size = size + array[0].length;
-    return cur < size - 1;
+    return cur < arr_size;
   }
 
   @Override
@@ -57,11 +59,12 @@ public class MatrixIterator<T> implements Iterator<T>
 
   public static void main(String[] args)
   {
-//    Integer[][] arr = {new Integer[]{1, 2, 3}, new Integer[]{4, 5}, new Integer[]{6, 7,8,9}};
+    Integer[][] arr = {new Integer[]{1, 2, 3}, new Integer[]{4, 5}, new Integer[]{6, 7, 8, 9}};
 //    System.out.println(arr.length + " " + arr[0].length);
 
-    String[][] arr = {{"алекс", "васил", "григо"}, {"дмитр", "дмитр", "григо"}, {"дмитр", "васил"}};
-    System.out.println(arr[0][0] + " " + arr[0][1] + " " + arr[0][2]);
+//    String[][] arr = {{"алекс", "васил", "григо"}, {"дмитр", "дмитр", "григо"}, {"дмитр", "васил"}};
+//    String[][] arr = {{"boris", "dmitr"}, {"vasil", "vasil", "alexa"}, {"grigo", "dmitr"}};
+    //System.out.println(arr[0][0] + " " + arr[0][1] + " " + arr[0][2]);
 
     int n = 1;
     MatrixIterator mi = new MatrixIterator(arr);
@@ -70,6 +73,19 @@ public class MatrixIterator<T> implements Iterator<T>
     //System.out.println("");
   }
 }
+
+//  В конструктор передан двумерный массив содержащий 3 массива.
+//  Массив 1, значения: Борис,Дмитрий.
+//  Массив 2, значения: Василий,Василий,Александр.
+//  Массив 3, значения: Григорий,Дмитрий.
+//
+//  Текущий порядковый номер вызова : 5.
+//  Вызван метод hasNext(), возвращено: true. Ожидалось: true.
+//  Вызван метод next(), возвращено: Александр. Ожидалось: Александр.
+//  Вызван метод hasNext(), возвращено: false. Ожидалось: true.
+//=================================================================
+
+
 // Тест "Класс MatrixIterator" не пройден. Класс работает неверно.
 //
 // В конструктор передан двумерный массив содержащий 3 массива.
