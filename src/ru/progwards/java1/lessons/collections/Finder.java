@@ -24,6 +24,7 @@ package ru.progwards.java1.lessons.collections;
 // повторяющаяся последовательность которого началась с наименьшего индекса.
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -82,16 +83,22 @@ public class Finder
   {
     List<Integer> source = (List<Integer>) numbers;
 
+    int[] flags=new int[numbers.size()];
+    Arrays.fill(flags,0);
+
 //сумма от 1 до size
     int sum = 0;
-    for (int i = 1; i <= source.size(); i++)
-      sum = sum + i;
+    for (int i = 0; i < source.size(); i++)
+    {
+//за пределами массива или уже было
+      if (source.get(i)>source.size() || source.get(i)<1 || flags[source.get(i)-1]>0)
+        return false;
 
-//items sum
-    int items = 0;
-    for (Integer integer : source) items = items + integer;
+      sum++;
+      flags[source.get(i)-1]=1;
+    }
 
-    return sum == items;
+    return sum == source.size();
   }
 
   public static String findSimilar(Collection<String> names)
@@ -157,8 +164,9 @@ public class Finder
     list.add(1);
     list.add(3);
     list.add(2);
+    list.add(4);
     System.out.println("source: " + list);
-    System.out.println("find local max: " + findSequence(list));
+    System.out.println("findsequence: " + findSequence(list));
 
 //==============================
     Collection<String> source = new ArrayList<>();
