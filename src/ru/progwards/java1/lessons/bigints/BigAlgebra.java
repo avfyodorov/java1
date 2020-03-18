@@ -52,24 +52,28 @@ public class BigAlgebra
 
   public static void main(String[] args)
   {
+    //fibo=12586269025, 167652
+    long start = new Date().getTime();
+    System.out.println("fibo=" + fibonacci(30).toString() + ", "+ (new Date().getTime() - start));
+
     String s = "fibo=";
-    for (int i = 1; i < 19; i++)
+    for (int i = 1; i <= 30; i++)
       s = s + fibonacci(i).toString() + ", ";
     System.out.println(s);
 
-    long start = new Date().getTime();
-    BigDecimal b1 = new BigDecimal(2);
-    b1 = b1.pow(1000000);
-    System.out.println("standart=  " + (new Date().getTime() - start) + " ms. res: " + b1);
-
-    start = new Date().getTime();
-    BigDecimal b2 = fastPow(new BigDecimal(2), 1000000);
-    System.out.println("fastpow = " + (new Date().getTime() - start) + " ms. res: " + b2);
-
-    start = new Date().getTime();
-    BigDecimal b3 = fastPow0(new BigDecimal(2), 1000000);
-    System.out.println("fastpow0= " + (new Date().getTime() - start) + " ms. res: " + b3);
-
+//    long start = new Date().getTime();
+//    BigDecimal b1 = new BigDecimal(2);
+//    b1 = b1.pow(1000000);
+//    System.out.println("standart=  " + (new Date().getTime() - start) + " ms. res: " + b1);
+//
+//    start = new Date().getTime();
+//    BigDecimal b2 = fastPow(new BigDecimal(2), 1000000);
+//    System.out.println("fastpow = " + (new Date().getTime() - start) + " ms. res: " + b2);
+//
+//    start = new Date().getTime();
+//    BigDecimal b3 = fastPow0(new BigDecimal(2), 1000000);
+//    System.out.println("fastpow0= " + (new Date().getTime() - start) + " ms. res: " + b3);
+//
 
   }
 }

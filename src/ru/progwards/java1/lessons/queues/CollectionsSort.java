@@ -81,7 +81,7 @@ public class CollectionsSort
 
       data.clear();
     }
-//    System.out.println(m_name + " == " + (int) (new Date().getTime() - start));
+    System.out.println(m_name + " == " + (int) (new Date().getTime() - start));
     return new ResSortTest(m_name, (int) (new Date().getTime() - start));
   }
 
@@ -107,6 +107,15 @@ public class CollectionsSort
     tests.add(testmain("minSort"));
     tests.add(testmain("collSort"));
 //--------------
+//    Время вызова метода mySort составило: 3027 мсек.
+//    Время вызова метода minSort составило: 1625 мсек.
+//    Время вызова метода collSort составило: 401 мсек.
+//    Возвращена коллекция, содержащая: minSort, collSort, mySort.
+//    Ожидалось: collSort, minSort, mySort.
+//    tests.add(new ResSortTest("mySort", 3027));
+//    tests.add(new ResSortTest("minSort", 1625));
+//    tests.add(new ResSortTest("collSort", 401));
+
 
 //сформировать результирующий список строк
     List<String> res = new ArrayList<>();

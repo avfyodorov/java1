@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Coll
 {
+  /*
   public static void main(String[] args)
   {
     Set<Integer> set1=new HashSet<>();
@@ -18,6 +19,6 @@ public class Coll
     list.addAll(set2);
 
     Set<Integer>set5=new LinkedHashSet<>(list);
-    //System.out.println(set5.);
-  }
+    *///System.out.println(set5.);
+//  }
 }
