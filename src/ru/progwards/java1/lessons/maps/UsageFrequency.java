@@ -17,13 +17,14 @@ package ru.progwards.java1.lessons.maps;
 //        использовать wiki.test.tokens
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class UsageFrequency
 {
   List<String> list = new ArrayList<>();
 
-  public void processFile(String fileName) throws Exception
+  public void processFile(String fileName) //throws FileNotFoundException
   //- загрузить содержимое файла
   {
     try (Scanner in = new Scanner(new File(fileName)))
@@ -41,9 +42,9 @@ public class UsageFrequency
           list.add(sb.toString());
       }
     }
-    catch (Exception e)
+    catch (FileNotFoundException e)
     {
-      throw new Exception(e.getMessage());
+      System.out.println(e.getMessage());
     }
   }
 

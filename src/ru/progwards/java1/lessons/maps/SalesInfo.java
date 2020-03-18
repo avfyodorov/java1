@@ -132,8 +132,8 @@ class Order
       if (s.length != 4)
         return null;
 
-      String item = s[1];
-      String fio = s[0];
+      String item = s[1].trim();
+      String fio = s[0].trim();
       int kol = Integer.parseInt(s[2].trim());
       double sum = Double.parseDouble(s[3].trim());
 
