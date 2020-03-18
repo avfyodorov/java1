@@ -57,7 +57,7 @@ public class SalesInfo
 {
   List<Order> list = new ArrayList<>();
 
-  public int loadOrders(String fileName) throws FileNotFoundException
+  public int loadOrders(String fileName)// throws FileNotFoundException
   {
     try (Scanner in = new Scanner(new File(fileName)))
     {
@@ -68,6 +68,10 @@ public class SalesInfo
           list.add(order);
 
       }
+    }
+    catch (FileNotFoundException e)
+    {
+      System.out.println(e.getMessage());
     }
     return list.size();
   }
@@ -112,7 +116,7 @@ public class SalesInfo
   public static void main(String[] args) throws FileNotFoundException
   {
     SalesInfo si = new SalesInfo();
-    System.out.println(si.loadOrders("mymy.txt"));
+    System.out.println(si.loadOrders("mymmy.txt"));
     System.out.println(si.getGoods());
     System.out.println(si.getCustomers());
   }

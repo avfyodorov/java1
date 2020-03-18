@@ -41,6 +41,10 @@ public class UsageFrequency
           list.add(sb.toString());
       }
     }
+    catch (Exception e)
+    {
+      throw new Exception(e.getMessage());
+    }
   }
 
   public Map<Character, Integer> getLetters()
