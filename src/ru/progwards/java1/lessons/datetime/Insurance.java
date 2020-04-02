@@ -154,6 +154,7 @@ public class Insurance
 //    System.out.println(zdf);
 //
   }
-}
-  enum FormatStyle
+
+  public  enum FormatStyle
   {SHORT, LONG, FULL} //- стиль формата даты-времени
+}
