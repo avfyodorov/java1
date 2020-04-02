@@ -88,6 +88,8 @@ public class Insurance
   //- проверить действительна ли страховка на указанную дату-время.
   // Если продолжительность не задана считать страховку бессрочной.
   {
+    if (start.isAfter(dateTime))
+      return false;
     if (duration == null)
       return true;
 
@@ -106,22 +108,27 @@ public class Insurance
 
   public static void main(String[] args) throws InterruptedException
   {
-    Insurance insurance = new Insurance(ZonedDateTime.now());
+    Insurance insurance = new Insurance("2020-04-03T18:03:30.7495944+03:00[Europe/Moscow]", FormatStyle.FULL);
+    insurance.setDuration("1", FormatStyle.SHORT);
+
     System.out.println(insurance);
 
-    insurance.setDuration("PT1S", FormatStyle.FULL);
-    System.out.println(insurance);
-    Thread.sleep(1001);
-    System.out.println(insurance);
-
-    System.out.println(Duration.parse("PT73S"));
-
-    //Period duration1=Period.parse("0000-01-01T00:00:11");
-    LocalDateTime v = LocalDateTime.parse("0000-01-01T00:00:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-    ZonedDateTime z = insurance.start.plusYears(v.getYear()).plusMonths(v.getMonthValue()).
-            plusDays(v.getDayOfMonth()).
-            plusHours(v.getHour()).plusMinutes(v.getMinute()).plusSeconds(v.getSecond());
-    System.out.println(Duration.between(insurance.start, z));
+//    Insurance insurance = new Insurance(ZonedDateTime.now());
+//    System.out.println(insurance);
+//
+//    insurance.setDuration("PT1S", FormatStyle.FULL);
+//    System.out.println(insurance);
+//    Thread.sleep(1001);
+//    System.out.println(insurance);
+//
+//    System.out.println(Duration.parse("PT73S"));
+//
+//    //Period duration1=Period.parse("0000-01-01T00:00:11");
+//    LocalDateTime v = LocalDateTime.parse("0000-01-01T00:00:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+//    ZonedDateTime z = insurance.start.plusYears(v.getYear()).plusMonths(v.getMonthValue()).
+//            plusDays(v.getDayOfMonth()).
+//            plusHours(v.getHour()).plusMinutes(v.getMinute()).plusSeconds(v.getSecond());
+//    System.out.println(Duration.between(insurance.start, z));
 //    insurance = new Insurance("2020-03-30T18:03:30.7495944+03:00[Europe/Moscow]", FormatStyle.FULL);
 //    System.out.println(insurance);
 //    insurance = new Insurance("2020-03-30T18:03:30.7495944", FormatStyle.LONG);
@@ -147,7 +154,6 @@ public class Insurance
 //    System.out.println(zdf);
 //
   }
-
-  public enum FormatStyle
-  {SHORT, LONG, FULL} //- стиль формата даты-времени
 }
+  enum FormatStyle
+  {SHORT, LONG, FULL} //- стиль формата даты-времени
