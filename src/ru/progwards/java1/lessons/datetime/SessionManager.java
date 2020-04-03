@@ -24,7 +24,7 @@ public class SessionManager
   {
     this.sessionValid = sessionValid;
   }
-
+ 
   private Map<Integer, UserSession> sessions = new TreeMap<>();
 
   private boolean isValid(UserSession userSession)
