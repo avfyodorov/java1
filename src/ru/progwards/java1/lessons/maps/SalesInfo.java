@@ -105,16 +105,14 @@ public class SalesInfo
         double d = se.getKey() + order.sum;
         int i = se.getValue() + order.kol;
         res.put(order.fio, new AbstractMap.SimpleEntry<>(d, i));
-
       }
       else
         res.put(order.fio, new AbstractMap.SimpleEntry<>(order.sum, order.kol));
 
-      return res;
+    return res;
   }
 
-  public static void main(String[] args) throws FileNotFoundException
-  {
+  public static void main(String[] args) {
     SalesInfo si = new SalesInfo();
     System.out.println(si.loadOrders("mymmy.txt"));
     System.out.println(si.getGoods());

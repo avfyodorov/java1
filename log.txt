@@ -1,0 +1,5 @@
+qyqy8.txt (Не удается найти указанный файл)
+qyqy7.txt (Не удается найти указанный файл)
+qyqy7.txt (Не удается найти указанный файл)
+Index 49 out of bounds for length 25
+Index 49 out of bounds for length 25
