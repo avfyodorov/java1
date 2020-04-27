@@ -9,6 +9,7 @@ package ru.progwards.java1.lessons.files;
 //     Например, вызвана функция с параметрами (“aaa”, “bbb”, {“check”, “files”} )
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
@@ -20,45 +21,52 @@ import java.util.List;
 //   Важно! Если, например, слово “files” ни разу не встретилось, пустую папку создавать не нужно
 public class FilesSelect
 {
-  public void selectFiles(String inFolder, String outFolder, List<String> keys) throws IOException
+  public void selectFiles(String inFolder, String outFolder, List<String> keys) //throws IOException
   {
-    PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/*.txt");
-    Files.walkFileTree(Paths.get(inFolder), new SimpleFileVisitor<>()
-            {
+    try
+    {
 
-              @Override
-              public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
+
+      PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/*.txt");
+      Files.walkFileTree(Paths.get(inFolder), new SimpleFileVisitor<>()
+        {
+
+          @Override
+          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
+          {
+              if (pathMatcher.matches(file))
               {
-                if (pathMatcher.matches(file))
+                String txt = Files.readString(file);
+                for (String k : keys)
                 {
-                  String txt = Files.readString(file);
-                  for (String k : keys)
+                  if (txt.toUpperCase().contains(k.toUpperCase()))
                   {
-                    if (txt.toUpperCase().contains(k.toUpperCase()))
-                    {
-                      Path path = Paths.get(outFolder + "/" + k);
+                    Path path = Paths.get(outFolder + "/" + k);
 
-                      if (Files.notExists(path))
-                        Files.createDirectory(path);
-                      Files.copy(file, Paths.get(path + "/" + file.getFileName()), StandardCopyOption.REPLACE_EXISTING);
+                    if (Files.notExists(path))
+                      Files.createDirectory(path);
+                    Files.copy(file, Paths.get(path + "/" + file.getFileName()), StandardCopyOption.REPLACE_EXISTING);
 
-                    }
                   }
                 }
-                return FileVisitResult.CONTINUE;
               }
+              return FileVisitResult.CONTINUE;
+          }
 
-              @Override
-              public FileVisitResult visitFileFailed(Path file, IOException exc)
-              {
-                return FileVisitResult.CONTINUE;
-              }
-            }
+          @Override
+          public FileVisitResult visitFileFailed(Path file, IOException exc)
+          {
+            return FileVisitResult.CONTINUE;
+          }
+        }
 
-    );
+      );
+    } catch (IOException e){
+      throw new UncheckedIOException(e);
+    }
   }
 
-  public static void main(String[] args) throws IOException
+  public static void main(String[] args)// throws IOException
   {
     FilesSelect fs = new FilesSelect();
     fs.selectFiles("c:/lib/java/xxx/a", "c:/lib/java/xxx/b",

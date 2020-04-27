@@ -1,6 +1,7 @@
 package ru.progwards.java1.lessons.files;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
@@ -11,26 +12,33 @@ public class FindDuplicates
 {
   //  В заданном каталоге и его подкаталогах найти файлы, точно совпадающие по названию (и расширению),
 //  дате-времени последнего изменения, размеру и по содержимому.
-  public List<List<String>> findDuplicates(String startPath) throws IOException
+  public List<List<String>> findDuplicates(String startPath) //throws IOException
 //  , результат - список, содержащий списки строк с именами и полными путями совпадающих файлов.
   {
     List<List<String>> dup = new ArrayList<>();
-//собрать все файлы
-    List<Path> fullList = makeFullList(startPath);
-//
-    for (Path path : fullList)
+    try
     {
-//найти дубликаты
-      List<String> itemList = duplList(path);
-//если нашли дубл. - добавить
-      if (itemList.size() > 0)
-      {
-        itemList.add(0, path.toString());
-        dup.add(itemList);
-      }
-    }
 
-    return dup;
+//собрать все файлы
+      List<Path> fullList = makeFullList(startPath);
+//
+      for (Path path : fullList)
+      {
+//найти дубликаты
+        List<String> itemList = duplList(path);
+//если нашли дубл. - добавить
+        if (itemList.size() > 0)
+        {
+          itemList.add(0, path.toString());
+          dup.add(itemList);
+        }
+      }
+
+      return dup;
+    }catch (IOException e)
+    {
+      throw new UncheckedIOException(e);
+    }
   }
 
   void print(List<List<String>> dup)
@@ -46,7 +54,7 @@ public class FindDuplicates
     }
   }
 
-  public static void main(String[] args) throws IOException
+  public static void main(String[] args) //throws IOException
   {
     FindDuplicates fd = new FindDuplicates();
     List<List<String>> dup = fd.findDuplicates("c:/lib/java/zzz");

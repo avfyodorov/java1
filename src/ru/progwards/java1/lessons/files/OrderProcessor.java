@@ -165,6 +165,7 @@ public class OrderProcessor
   public static void main(String[] args) throws IOException
   {
     OrderProcessor op = new OrderProcessor("c:/lib/java/yyy");
+
     LocalDate finish = LocalDate.of(2020, 5, 15);
     System.out.println("errors: " + op.loadOrders(null, finish, null));
     op.printOrders(op.orderList);
@@ -239,7 +240,7 @@ class Order
     }
   }
 
-  private Order(String shopId, String orderId, String customerId, LocalDateTime datetime)
+  Order(String shopId, String orderId, String customerId, LocalDateTime datetime)
   {
     this.shopId = shopId;
     this.orderId = orderId;
@@ -271,7 +272,7 @@ class Order
 
 class OrderItem
 {
-  public OrderItem(String googsName, int count, double price)
+  OrderItem(String googsName, int count, double price)
   {
     this.googsName = googsName;
     this.count = count;
