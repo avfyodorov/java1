@@ -15,7 +15,7 @@ public class FindDuplicates
 //  , результат - список, содержащий списки строк с именами и полными путями совпадающих файлов.
   {
 //рабочая коллекция
-    Map<String,List<String>> worklist = new TreeMap<>();
+    Map<String, List<String>> worklist = new TreeMap<>();
 
     try
     {
@@ -28,21 +28,21 @@ public class FindDuplicates
 //если такой файл есть - сравнивать аттрибуты
             if (worklist.containsKey(file.getFileName().toString()))
             {
-              String samplefile=worklist.get(file.getFileName().toString()).get(0);
+              String samplefile = worklist.get(file.getFileName().toString()).get(0);
 //собрать аттрибуты и сравнить
-              AttrFile               attrSample=AttrFile.create(Path.of(samplefile));
-              AttrFile attrFile=AttrFile.create(file);
+              AttrFile attrSample = AttrFile.create(Path.of(samplefile));
+              AttrFile attrFile = AttrFile.create(file);
               if (attrSample.isDuplicate(attrFile))
               {
 //если совпадают - придется добавлять
                 worklist.get(file.getFileName().toString()).add(file.toString());
               }
-            }
-            else {
+            } else
+            {
 //нет такого файла - добавить
-              List<String> pathlist=new ArrayList<>();
+              List<String> pathlist = new ArrayList<>();
               pathlist.add(file.toString());
-              worklist.put(file.getFileName().toString(),pathlist);
+              worklist.put(file.getFileName().toString(), pathlist);
             }
             return FileVisitResult.CONTINUE;
           }
@@ -59,20 +59,21 @@ public class FindDuplicates
 //собрать выходную структуру
       List<List<String>> res = new ArrayList<>();
 
-      for (List<String> list:worklist.values()     )
+      for (List<String> list : worklist.values())
       {
 //есть одинаковые файлы
-        if (list.size()>1)
+        if (list.size() > 1)
           res.add(list);
       }
 
       return res;
 
-    }catch (IOException e)
+    } catch (IOException e)
     {
       throw new UncheckedIOException(e);
     }
   }
+
   public List<List<String>> findDuplicates0(String startPath) //throws IOException
 //  , результат - список, содержащий списки строк с именами и полными путями совпадающих файлов.
   {
@@ -86,7 +87,7 @@ public class FindDuplicates
       {
 //        System.out.println(path);
 //найти дубликаты
-        List<String> itemList = duplList(startPath,path);
+        List<String> itemList = duplList(startPath, path);
 //если нашли дубл. - добавить
         if (itemList.size() > 0)
         {
@@ -95,7 +96,7 @@ public class FindDuplicates
         }
       }
       return dup;
-    }catch (IOException e)
+    } catch (IOException e)
     {
       throw new UncheckedIOException(e);
     }
@@ -122,7 +123,7 @@ public class FindDuplicates
   }
 
   //для файла item найти дубликаты
-  private List<String> duplList(String startPath,Path path) throws IOException
+  private List<String> duplList(String startPath, Path path) throws IOException
   {
     List<String> res = new ArrayList<>();
     PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/" + path.getFileName());
@@ -131,25 +132,25 @@ public class FindDuplicates
     if (attrFile == null) return res;
 
     Files.walkFileTree(Paths.get(startPath), new SimpleFileVisitor<>()
-            {
-              @Override
-              public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-              {
-                if (pathMatcher.matches(file))
-                {
-                  AttrFile cur = AttrFile.create(file);
-                  if (cur != null && attrFile.isDuplicate(cur))
-                    res.add(file.toString());
-                }
-                return FileVisitResult.CONTINUE;
-              }
+      {
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+        {
+          if (pathMatcher.matches(file))
+          {
+            AttrFile cur = AttrFile.create(file);
+            if (cur != null && attrFile.isDuplicate(cur))
+              res.add(file.toString());
+          }
+          return FileVisitResult.CONTINUE;
+        }
 
-              @Override
-              public FileVisitResult visitFileFailed(Path file, IOException exc)
-              {
-                return FileVisitResult.CONTINUE;
-              }
-            }
+        @Override
+        public FileVisitResult visitFileFailed(Path file, IOException exc)
+        {
+          return FileVisitResult.CONTINUE;
+        }
+      }
     );
     return res;
   }
@@ -159,20 +160,20 @@ public class FindDuplicates
     TreeSet<Path> res = new TreeSet<>();
 
     Files.walkFileTree(Paths.get(startPath), new SimpleFileVisitor<>()
-            {
-              @Override
-              public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-              {
-                res.add(file.getFileName());
-                return FileVisitResult.CONTINUE;
-              }
+      {
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+        {
+          res.add(file.getFileName());
+          return FileVisitResult.CONTINUE;
+        }
 
-              @Override
-              public FileVisitResult visitFileFailed(Path file, IOException exc)
-              {
-                return FileVisitResult.CONTINUE;
-              }
-            }
+        @Override
+        public FileVisitResult visitFileFailed(Path file, IOException exc)
+        {
+          return FileVisitResult.CONTINUE;
+        }
+      }
 
     );
     return new ArrayList<>(res);
@@ -234,14 +235,14 @@ class AttrFile
 //файлы д.б. разными
 //              (!Files.isSameFile(path, file.path)) &&
 //имена совпадают
-                      (getName().compareTo(file.getName()) == 0) &&
+        (getName().compareTo(file.getName()) == 0) &&
 //размеры
-                      (size == file.size) &&
+          (size == file.size) &&
 //время
-                      (time.compareTo(file.time) == 0) &&
+          (time.compareTo(file.time) == 0) &&
 //content
-                      (isContent(file))
-              ;
+          (isContent(file))
+        ;
     } catch (IOException e)
     {
       return false;

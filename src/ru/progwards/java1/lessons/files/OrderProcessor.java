@@ -1,6 +1,7 @@
 package ru.progwards.java1.lessons.files;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
@@ -47,7 +48,7 @@ public class OrderProcessor
 
   int errors;
 
-  public int loadOrders(LocalDate start, LocalDate finish, String shopId) throws IOException
+  public int loadOrders(LocalDate start, LocalDate finish, String shopId) //throws IOException
   //- загружает заказы за указанный диапазон дат, с start до finish, обе даты включительно.
   // Если start == null, значит нет ограничения по дате слева,
   // если finish == null, значит нет ограничения по дате справа,
@@ -58,37 +59,46 @@ public class OrderProcessor
   {
     errors = 0;
     orderList.clear();
+    try
+    {
+
+
 //найти файлы, подходящие по имени
-    String mask = String.format("glob:**/%s-??????-????.csv", (shopId == null ? "???" : shopId));
-    PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher(mask);
-    Files.walkFileTree(Path.of(startPath), new SimpleFileVisitor<>()
-      {
-        @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+      String mask = String.format("glob:**/%s-??????-????.csv", (shopId == null ? "???" : shopId));
+      PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher(mask);
+      Files.walkFileTree(Path.of(startPath), new SimpleFileVisitor<>()
         {
-//отбор по имени
-          if (pathMatcher.matches(file))
+          @Override
+          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
           {
+//отбор по имени
+            if (pathMatcher.matches(file))
+            {
 //            System.out.println(file);
 //индекс магаза, допустимое время... загрузить и добавить
-            Order order = Order.loadOrder(file, start, finish, shopId);
-            if (order != null)
-              orderList.add(order);
-            else
-              errors++;
+              Order order = Order.loadOrder(file, start, finish, shopId);
+              if (order != null)
+                orderList.add(order);
+              else
+                errors++;
+            }
+            return FileVisitResult.CONTINUE;
           }
-          return FileVisitResult.CONTINUE;
-        }
 
-        @Override
-        public FileVisitResult visitFileFailed(Path file, IOException exc)
-        {
-          return FileVisitResult.CONTINUE;
+          @Override
+          public FileVisitResult visitFileFailed(Path file, IOException exc)
+          {
+            return FileVisitResult.CONTINUE;
+          }
         }
-      }
-    );
+      );
 
-    return errors;
+      return errors;
+    } catch (IOException e)
+    {
+      throw new UncheckedIOException(e);
+    }
+
   }
 
   public List<Order> process(String shopId)
@@ -150,10 +160,10 @@ public class OrderProcessor
   //- выдать информацию по объему продаж по дням (отсортированную по ключам):
   // LocalDate - конкретный день, double - сумма стоимости всех проданных товаров в этот день
   {
-    Map<LocalDate, Double> res=new TreeMap<>();
+    Map<LocalDate, Double> res = new TreeMap<>();
     for (Order order : orderList)
     {
-      LocalDate localDate=LocalDate.from(order.datetime);
+      LocalDate localDate = LocalDate.from(order.datetime);
       if (res.containsKey(localDate))
         res.put(localDate, res.get(localDate) + order.sum);
       else
