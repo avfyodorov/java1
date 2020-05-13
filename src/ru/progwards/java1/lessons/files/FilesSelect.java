@@ -25,32 +25,27 @@ public class FilesSelect
   {
     try
     {
-
-
       PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/*.txt");
       Files.walkFileTree(Paths.get(inFolder), new SimpleFileVisitor<>()
         {
-
           @Override
           public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
           {
-              if (pathMatcher.matches(file))
+            if (pathMatcher.matches(file))
+            {
+              String txt = Files.readString(file);
+              for (String k : keys)
               {
-                String txt = Files.readString(file);
-                for (String k : keys)
+                if (txt.toUpperCase().contains(k.toUpperCase()))
                 {
-                  if (txt.toUpperCase().contains(k.toUpperCase()))
-                  {
-                    Path path = Paths.get(outFolder + "/" + k);
-
-                    if (Files.notExists(path))
-                      Files.createDirectory(path);
-                    Files.copy(file, Paths.get(path + "/" + file.getFileName()), StandardCopyOption.REPLACE_EXISTING);
-
-                  }
+                  Path path = Paths.get(outFolder + "/" + k);
+                  if (Files.notExists(path))
+                    Files.createDirectory(path);
+                  Files.copy(file, Paths.get(path + "/" + file.getFileName()), StandardCopyOption.REPLACE_EXISTING);
                 }
               }
-              return FileVisitResult.CONTINUE;
+            }
+            return FileVisitResult.CONTINUE;
           }
 
           @Override
@@ -61,7 +56,8 @@ public class FilesSelect
         }
 
       );
-    } catch (IOException e){
+    } catch (IOException e)
+    {
       throw new UncheckedIOException(e);
     }
   }
@@ -70,6 +66,6 @@ public class FilesSelect
   {
     FilesSelect fs = new FilesSelect();
     fs.selectFiles("c:/lib/java/xxx/a", "c:/lib/java/xxx/b",
-            Arrays.asList("foo", "abra", "kadabra"));
+      Arrays.asList("foo", "abra", "kadabra"));
   }
 }

@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
 
 public class Order
 {
@@ -27,9 +29,9 @@ public class Order
       LocalDate localDate = LocalDate.ofInstant(time.toInstant(), ZoneId.systemDefault());
 
 //      System.out.println("finish: "+finish+" filetime: "+localDate);
-      if ((start == null || start.compareTo(localDate) <= 0) &&
-        (finish == null || finish.compareTo(localDate) >= 0) &&
-        (shopId == null || shopId.compareTo(filename.substring(0, 3)) == 0)
+      if ((start == null || (start!=null && start.compareTo(localDate) <= 0)) &&
+        (finish == null || (finish!=null && finish.compareTo(localDate) >= 0)) &&
+        (shopId == null || (shopId!=null && shopId.compareTo(filename.substring(0, 3)) == 0))
       )
       {
         Order order = new Order(filename.substring(0, 3), filename.substring(4, 10),
@@ -49,6 +51,15 @@ public class Order
 //        Книжка “Сказки Пушкина”, 1, 300
   private void loadItems(Path path) throws IOException, NumberFormatException
   {
+    TreeSet<OrderItem> tree = new TreeSet<>(new Comparator<>()
+    {
+      @Override
+      public int compare(OrderItem o1, OrderItem o2)
+      {
+        return o1.googsName.compareTo(o2.googsName);
+      }
+    });
+
     sum = 0.0;
     List<String> lines = Files.readAllLines(path);
     for (String line : lines)
@@ -61,11 +72,15 @@ public class Order
 
       sum = sum + price * count;
 
-      items.add(new OrderItem(goog, count, price));
+      tree.add(new OrderItem(goog, count, price));
     }
+
+    items = new ArrayList(tree);
   }
 
-  public Order(){}
+  public Order()
+  {
+  }
 
   public Order(String shopId, String orderId, String customerId, LocalDateTime datetime)
   {

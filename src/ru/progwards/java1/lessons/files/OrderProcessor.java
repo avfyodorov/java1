@@ -61,8 +61,6 @@ public class OrderProcessor
     orderList.clear();
     try
     {
-
-
 //найти файлы, подходящие по имени
       String mask = String.format("glob:**/%s-??????-????.csv", (shopId == null ? "???" : shopId));
       PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher(mask);
