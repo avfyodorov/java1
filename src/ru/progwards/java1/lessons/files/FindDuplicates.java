@@ -11,7 +11,8 @@ public class FindDuplicates
 {
   //  В заданном каталоге и его подкаталогах найти файлы, точно совпадающие по названию (и расширению),
 //  дате-времени последнего изменения, размеру и по содержимому.
-  public List<List<String>> findDuplicates(String startPath)
+  /*
+  public List<List<String>> findDuplicates1(String startPath)
 //  , результат - список, содержащий списки строк с именами и полными путями совпадающих файлов.
   {
 //рабочая коллекция
@@ -73,7 +74,63 @@ public class FindDuplicates
       throw new UncheckedIOException(e);
     }
   }
+*/
+  public List<List<String>> findDuplicates(String startPath)
+//  , результат - список, содержащий списки строк с именами и полными путями совпадающих файлов.
+  {
+//рабочая коллекция
+    Map<String, TreeSet<String>> worklist = new TreeMap<>();
 
+    try
+    {
+//собрать все файлы
+      List<AttrFile> fullList = makeFullList(startPath);
+
+//по каждому файлу искать дубликаты
+      for (int i = 0; i < fullList.size(); i++)
+      {
+        for (int j = 0; j < fullList.size(); j++)
+        {
+//исключить проверку самим собой
+          if (i == j) continue;
+//сравнить файлы
+          if (fullList.get(i).isDuplicate(fullList.get(j)))
+          {
+//есть ли уже в рабочей коллекции
+            if (worklist.containsKey(fullList.get(i).path.getFileName().toString()))
+            {
+              TreeSet<String> treeSet = worklist.get(fullList.get(i).path.getFileName().toString());
+              treeSet.add(fullList.get(i).path.toString());
+              treeSet.add(fullList.get(j).path.toString());
+            } else
+            {
+//нет такого - добавить оба
+              TreeSet<String> setFiles = new TreeSet<>();
+              setFiles.add(fullList.get(i).path.toString());
+              setFiles.add(fullList.get(j).path.toString());
+              worklist.put(fullList.get(i).path.getFileName().toString(), setFiles);
+            }
+//добавить в рабочую коллекцию
+//            System.out.println(fullList.get(i).path + " == " + fullList.get(j).path);
+          }
+        }
+      }
+//собрать выходную структуру
+      List<List<String>> res = new ArrayList<>();
+
+      for (TreeSet<String> list : worklist.values())
+      {
+        res.add(new ArrayList<>(list));
+      }
+
+      return res;
+
+    } catch (IOException e)
+    {
+      throw new UncheckedIOException(e);
+    }
+  }
+/*
   public List<List<String>> findDuplicates0(String startPath) //throws IOException
 //  , результат - список, содержащий списки строк с именами и полными путями совпадающих файлов.
   {
@@ -101,7 +158,7 @@ public class FindDuplicates
       throw new UncheckedIOException(e);
     }
   }
-
+*/
   void print(List<List<String>> dup)
   {
     System.out.println("--------------------");
@@ -122,26 +179,75 @@ public class FindDuplicates
     fd.print(dup);
   }
 
-  //для файла item найти дубликаты
-  private List<String> duplList(String startPath, Path path) throws IOException
+//  //для файла item найти дубликаты
+//
+//  private List<String> duplList(String startPath, Path path) throws IOException
+//  {
+//    List<String> res = new ArrayList<>();
+//    PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/" + path.getFileName());
+////собрать параметры
+//    AttrFile attrFile = AttrFile.create(path);
+//    if (attrFile == null) return res;
+//
+//    Files.walkFileTree(Paths.get(startPath), new SimpleFileVisitor<>()
+//      {
+//        @Override
+//        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+//        {
+//          if (pathMatcher.matches(file))
+//          {
+//            AttrFile cur = AttrFile.create(file);
+//            if (cur != null && attrFile.isDuplicate(cur))
+//              res.add(file.toString());
+//          }
+//          return FileVisitResult.CONTINUE;
+//        }
+//
+//        @Override
+//        public FileVisitResult visitFileFailed(Path file, IOException exc)
+//        {
+//          return FileVisitResult.CONTINUE;
+//        }
+//      }
+//    );
+//    return res;
+//  }
+//
+//  private List<Path> makeTree(String startPath) throws IOException
+//  {
+//    TreeSet<Path> res = new TreeSet<>();
+//
+//    Files.walkFileTree(Paths.get(startPath), new SimpleFileVisitor<>()
+//      {
+//        @Override
+//        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+//        {
+//          res.add(file.getFileName());
+//          return FileVisitResult.CONTINUE;
+//        }
+//
+//        @Override
+//        public FileVisitResult visitFileFailed(Path file, IOException exc)
+//        {
+//          return FileVisitResult.CONTINUE;
+//        }
+//      }
+//
+//    );
+//    return new ArrayList<>(res);
+//  }
+
+  private List<AttrFile> makeFullList(String startPath) throws IOException
   {
-    List<String> res = new ArrayList<>();
-    PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/" + path.getFileName());
-//собрать параметры
-    AttrFile attrFile = AttrFile.create(path);
-    if (attrFile == null) return res;
+    List<AttrFile> res = new ArrayList<>();
 
     Files.walkFileTree(Paths.get(startPath), new SimpleFileVisitor<>()
       {
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
         {
-          if (pathMatcher.matches(file))
-          {
-            AttrFile cur = AttrFile.create(file);
-            if (cur != null && attrFile.isDuplicate(cur))
-              res.add(file.toString());
-          }
+//собрать параметры файла и добавить в коллекцию
+          res.add(AttrFile.create(file));
           return FileVisitResult.CONTINUE;
         }
 
@@ -151,54 +257,6 @@ public class FindDuplicates
           return FileVisitResult.CONTINUE;
         }
       }
-    );
-    return res;
-  }
-
-  private List<Path> makeTree(String startPath) throws IOException
-  {
-    TreeSet<Path> res = new TreeSet<>();
-
-    Files.walkFileTree(Paths.get(startPath), new SimpleFileVisitor<>()
-      {
-        @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-        {
-          res.add(file.getFileName());
-          return FileVisitResult.CONTINUE;
-        }
-
-        @Override
-        public FileVisitResult visitFileFailed(Path file, IOException exc)
-        {
-          return FileVisitResult.CONTINUE;
-        }
-      }
-
-    );
-    return new ArrayList<>(res);
-  }
-
-  private List<Path> makeFullList(String startPath) throws IOException
-  {
-    List<Path> res = new ArrayList<>();
-
-    Files.walkFileTree(Paths.get(startPath), new SimpleFileVisitor<>()
-      {
-        @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-        {
-          res.add(file);
-          return FileVisitResult.CONTINUE;
-        }
-
-        @Override
-        public FileVisitResult visitFileFailed(Path file, IOException exc)
-        {
-          return FileVisitResult.CONTINUE;
-        }
-      }
-
     );
     return res;
   }
