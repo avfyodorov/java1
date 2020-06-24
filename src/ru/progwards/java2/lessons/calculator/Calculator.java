@@ -17,32 +17,39 @@ public class Calculator
 //  На сколько сильно нужно будет изменить код, что бы это заработало?
   {
     String stack = toPolish(expression);
-    return calc(stack);
+    if (stack != null)
+      return calc(stack);
+    else
+      return 0;
   }
 
-  static String ops = "()-+*/";
-  static int[] weight = {0, 1, 2, 2, 3, 3};
+  static String ops = "()~-+*/";
+  static int[] weight = {0, 1, 2, 2, 2, 3, 3};
 
   public static String toPolish(String expression)
   {
     Deque<Character> stack = new ArrayDeque<>();
 
     StringBuilder res = new StringBuilder();
-    for (char c : expression.toCharArray())
+    char[] c = expression.toCharArray();
+    for (int x = 0; x < c.length; x++)
     {
 //числа сразу переводятся в рез-т
-      if (Character.isDigit(c))
-        res.append(c);
+      if (Character.isDigit(c[x]))
+        res.append(c[x]);
       else
       {
-        int i = ops.indexOf(c);
+//отследить унарный -
+        if ((c[x]=='-') && (x==0 || "-+*/(".indexOf(c[x-1])>=0))
+          c[x]='~';
+        int i = ops.indexOf(c[x]);
         if (i < 0) return null;
 // если ( или пустой или вес входящего больше -- просто добавить
         if (weight[i] == 0 || stack.isEmpty() || weight[i] > weight[ops.indexOf(stack.peek())])
-          stack.push(c);
+          stack.push(c[x]);
         else
         {
-          if (c == ')')
+          if (c[x] == ')')
           {
 // если ) -- вытащить всё, до (.  () - удаляются
             while (!stack.isEmpty() && stack.peek() != '(')
@@ -53,7 +60,7 @@ public class Calculator
 //вес входящего не больше - вытащить из стека и положить
             while (!stack.isEmpty() && weight[i] <= weight[ops.indexOf(stack.peek())])
               res.append(stack.pop());
-            stack.push(c);
+            stack.push(c[x]);
           }
         }
       }
@@ -73,28 +80,31 @@ public class Calculator
         stack.push(Integer.parseInt(Character.toString(c)));
       else
       {
-        if (c=='*')
-          stack.push(stack.pop()*stack.pop());
-        else if (c=='+')
-          stack.push(stack.pop()+stack.pop());
-        else if (c=='/')
+        if (c=='~')
+          stack.push(-stack.pop());
+        else if (c == '*')
+          stack.push(stack.pop() * stack.pop());
+        else if (c == '+')
+          stack.push(stack.pop() + stack.pop());
+        else if (c == '/')
         {
-          Integer b=stack.pop();
+          Integer b = stack.pop();
           stack.push(stack.pop() / b);
-        }
-        else if (c=='-')
+        } else if (c == '-')
         {
-          Integer b=stack.pop();
+          Integer b = stack.pop();
           stack.push(stack.pop() - b);
         }
       }
     }
-      return stack.pop();
+    return stack.pop();
   }
 
   public static void main(String[] args)
   {
     System.out.println(calculate("2+3*2"));
     System.out.println(calculate("2+3*2-8/(1+3)"));
+    System.out.println(calculate("2+3*2-8/(-1+3)"));
+
   }
 }
