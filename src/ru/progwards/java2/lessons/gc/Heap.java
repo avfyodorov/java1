@@ -109,7 +109,7 @@ public class Heap
   {
     try
     {
-      Heap heap = new Heap(120);
+      Heap heap = new Heap(10);
       heap.malloc(11);
       heap.malloc(22);
       heap.malloc(33);
@@ -126,7 +126,14 @@ public class Heap
     {
       System.out.println(e.getMessage());
     }
-
   }
+
+//  public void getBytes(int ptr, byte[] bytes) {
+//    System.arraycopy(this.bytes, ptr, bytes, 0, size);
+//  }
+//
+//  public void setBytes(int ptr, byte[] bytes) {
+//    System.arraycopy(bytes, 0, this.bytes, ptr, size);
+//  }
 }
 

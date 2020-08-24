@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.function.Predicate;
+import java.util.function.*;
 
 public class Lesson_02_01
 {
@@ -34,5 +34,34 @@ public class Lesson_02_01
 //
     Predicate<Integer> isEven = x -> x % 2 == 0;
     System.out.println(isEven.test(8));
+
+    Function<Double, Double> square = x -> x * x;
+    Function<Double, Double> root = x -> Math.sqrt(x);
+    Function<Double, Double> mod = x -> root.apply(square.apply(x));
+
+    System.out.println(mod.apply(-5.0));
+    //
+    Supplier<Integer> rand = () -> (int) (Math.random() * 10 + 1);
+
+    for (int i = 0; i < 10; i++)
+    {
+      System.out.println(rand.get());
+    }
+
+    //
+    UnaryOperator<Double> sq = x -> x * x;
+    System.out.println(sq.apply(-7.0));
+
+    Predicate<Integer> predicate = Lesson_02_01::isEvan;
+    System.out.println(predicate.test(6));
+
+    Consumer<String> consumer=System.out::println;
+    consumer.accept("qyqy");
+
+  }
+
+  static boolean isEvan(Integer i)
+  {
+    return i % 2 == 0;
   }
 }
