@@ -19,7 +19,7 @@ public class Coder
     try
     {
       FileWriter log = new FileWriter(logName, true);
-
+//
       try
       {
         log.write(msg + "\n");

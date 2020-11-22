@@ -37,7 +37,23 @@ public class BigAlgebra
     }
     return res;
   }
-
+  static BigDecimal fastPow2(BigDecimal num, int pow) {
+    String temp = Integer.toBinaryString(pow);
+    int result = Integer.parseInt(temp);
+    int low;
+    BigDecimal res = BigDecimal.ONE;
+    for (int i = temp.length() - 1; i >= 0; i--) {
+      low = (result >> i) & 1;
+      if (i !=0) {
+        res = res.multiply(num.pow(low));
+        res = res.pow(2);
+      }
+      if (i == 0) {
+        res = res.multiply(num.pow(low));
+      }
+    }
+    return new BigDecimal(String.valueOf(res));
+  }
   // Реализовать алгоритм вычисления n-го числа фибоначчи в BigInteger.
 // Последовательность чисел Фибоначчи, это когда каждое последующее число равно
 // сумме двух предыдущих чисел. Первые 2 числа последовательности 1, 1.
@@ -66,14 +82,14 @@ public class BigAlgebra
 //    b1 = b1.pow(1000000);
 //    System.out.println("standart=  " + (new Date().getTime() - start) + " ms. res: " + b1);
 //
-//    start = new Date().getTime();
-//    BigDecimal b2 = fastPow(new BigDecimal(2), 1000000);
-//    System.out.println("fastpow = " + (new Date().getTime() - start) + " ms. res: " + b2);
-//
-//    start = new Date().getTime();
-//    BigDecimal b3 = fastPow0(new BigDecimal(2), 1000000);
-//    System.out.println("fastpow0= " + (new Date().getTime() - start) + " ms. res: " + b3);
-//
+    start = new Date().getTime();
+    BigDecimal b2 = fastPow(new BigDecimal(2), 1000000);
+    System.out.println("fastpow = " + (new Date().getTime() - start) + " ms. res: " + b2);
+
+    start = new Date().getTime();
+    BigDecimal b3 = fastPow2(new BigDecimal(2), 1000000);
+    System.out.println("fastpow0= " + (new Date().getTime() - start) + " ms. res: " + b3);
+
 
   }
 }

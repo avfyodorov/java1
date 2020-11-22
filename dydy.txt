@@ -1,1 +1,1 @@
-A*B*ABCDEFGHI*
+A******B***ABCDEFGHI**

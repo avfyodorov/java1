@@ -43,4 +43,21 @@ public class FileTest
     }
     return res;
   }
+  private int lineCount2(String filename) throws IOException{
+    try{FileReader reader = new FileReader(filename);
+      Scanner scanner = new Scanner(reader);
+      int countLine = 0;
+      while (true){
+        String str = scanner.nextLine();
+        countLine++;
+        if (scanner.hasNextLine() == false){
+          break;
+        }
+      }
+      return countLine;
+    } catch (IOException exception){
+      throw new IOException("файл не найден");
+    }
+  }
+
 }
