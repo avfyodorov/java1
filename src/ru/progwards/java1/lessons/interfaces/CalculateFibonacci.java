@@ -10,11 +10,16 @@ public class CalculateFibonacci
 //  будет возвращать n-ое число Фибоначчи (нумерация начинается с 1,
 //  то есть при n = 3 должно вернуться число Фибоначчи 2, а при n = 10 число 55).
   {
+//если вложенный класс ещё не создан -  создать
     if (getLastFibo() == null)
       lastFibo = new CacheInfo();
 
+//если уже рассчино - просто вернуть
     if (n == lastFibo.n)
+    {
+      System.out.println("calced");
       return lastFibo.fibo;
+    }
 
     lastFibo.n = n;
 
@@ -24,6 +29,7 @@ public class CalculateFibonacci
       return 1;
     }
 
+//складываем два предыдущих, и запоминаем рез-т  и предпоследнее значение
     int f0 = 1, f1 = 1, f2 = 0;
 
     for (int i = 3; i <= n; i++)
@@ -37,12 +43,14 @@ public class CalculateFibonacci
     return f2;
   }
 
+//вложенный класс. Содержит переменные
   public static class CacheInfo
   {
     public int n;    // -число,  для которого  рассчитываем Фибоначчи
     public int fibo; // -  результат расчета
   }
 
+//ссылка на вложенный класс
   private static CacheInfo lastFibo;
 
   public static CacheInfo getLastFibo()
