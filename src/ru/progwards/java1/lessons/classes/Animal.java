@@ -1,4 +1,4 @@
-package ru.progwards.java1.lessons.classes;
+ package ru.progwards.java1.lessons.classes;
 
 public class Animal
 {
