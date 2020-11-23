@@ -76,10 +76,14 @@ public class Censor
       throw new CensorException(e.getMessage(), inoutFileName);
     }
   }
-
+//  Буря мглою небо кроет,
+//  Вихри снежные крутя;
+//  То как зверь она завоет,
+//  То заплачет как дитя.
   public static void main(String[] args)
   {
-    String[] obscene = {"Java", "Oracle", "Sun", "Microsystems"};
+    String[] obscene ={"мглою","снежные","То","дитя"};
+            //{"Java", "Oracle", "Sun", "Microsystems"};
     try
     {
       censorFile("censor.txt", obscene);
