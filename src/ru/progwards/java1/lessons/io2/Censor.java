@@ -18,44 +18,46 @@ package ru.progwards.java1.lessons.io2;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class Censor
-{
-  public static class CensorException extends Exception
-  {
-    public CensorException(String message, String filename)
-    {
-      super(message);
-      this.message = message;
-      this.filename = filename;
-    }
+public class Censor {
+   public static class CensorException extends Exception {
+      public CensorException(String message, String filename) {
+         super(message);
+         this.message = message;
+         this.filename = filename;
+      }
 
-    private String filename;
-    private String message;
+      private String filename;
+      private String message;
 
-    @Override
-    public String toString()
-    {
-      return filename + ":" + message;
-    }
-  }
+      @Override
+      public String toString() {
+         return filename + ":" + message;
+      }
+   }
 
-  public static void censorFile(String inoutFileName, String[] obscene) throws CensorException
-  {
+   public static void censorFile(String inoutFileName, String[] obscene) throws CensorException {
 
-    try (RandomAccessFile f = new RandomAccessFile(inoutFileName, "rw"))
-    {
+      try (RandomAccessFile f = new RandomAccessFile(inoutFileName, "rw")) {
 
 //прочитать сразу весь файл
-      byte[] b = new byte[(int) f.length()];
-      f.readFully(b);
-      String res = new String(b);
+         byte[] b = new byte[(int) f.length()];
+         f.readFully(b);
+         String res = new String(b);
 
+//подготовить звёздочки искать слово в строке
+         for (String str : obscene) {
+            res = res.replaceAll(str, "*".repeat(str.length()));
+         }
+
+      /*
       for (int i = 0; i < obscene.length; i++)
       {
 //подготовить звёздочки
-        StringBuilder stars = new StringBuilder();
-        for (int j = 0; j < obscene[i].length(); j++)
-          stars.append('*');
+//        StringBuilder stars = new StringBuilder();
+//        for (int j = 0; j < obscene[i].length(); j++)
+//          stars.append('*');
+     String stars= "*".repeat(obscene[i].length());   //Или собрать в цикле с помощью StringBuilder
+
 
 //искать слово в строке
         int j = res.indexOf(obscene[i]);
@@ -65,31 +67,30 @@ public class Censor
           j = res.indexOf(obscene[i]);
         }
       }
+ */
 
 //записать обратно
-      System.out.println(res);
-      f.seek(0);
-      f.write(res.getBytes());
+         System.out.println(res);
+         f.seek(0);
+         f.write(res.getBytes());
+         f.setLength(f.getFilePointer()); //режем хвост
 
-    } catch (Exception e)
-    {
-      throw new CensorException(e.getMessage(), inoutFileName);
-    }
-  }
+      } catch (Exception e) {
+         throw new CensorException(e.getMessage(), inoutFileName);
+      }
+   }
+
 //  Буря мглою небо кроет,
 //  Вихри снежные крутя;
 //  То как зверь она завоет,
 //  То заплачет как дитя.
-  public static void main(String[] args)
-  {
-    String[] obscene ={"мглою","снежные","То","дитя"};
-            //{"Java", "Oracle", "Sun", "Microsystems"};
-    try
-    {
-      censorFile("censor.txt", obscene);
-    } catch (CensorException e)
-    {
-      System.out.println(e.toString());
-    }
-  }
+   public static void main(String[] args) {
+      String[] obscene = {"мглою", "снежные", "То", "дитя"};
+      //{"Java", "Oracle", "Sun", "Microsystems"};
+      try {
+         censorFile("censor.txt", obscene);
+      } catch (CensorException e) {
+         System.out.println(e.toString());
+      }
+   }
 }

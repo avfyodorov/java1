@@ -38,6 +38,7 @@ public class Censor_Minkin {
          rafCensor.seek(0);     //перевожу курсор в нужную позицию
          rafCensor.write(res.getBytes());
 
+         rafCensor.setLength(rafCensor.getFilePointer());
 
       }catch (FileNotFoundException fnfExc){
          System.out.println("Errooooor");
