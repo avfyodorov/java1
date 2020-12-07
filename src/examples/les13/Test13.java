@@ -82,11 +82,20 @@ public class Test13
     test13.unionOfSets(s1, s2);
 
     System.out.println(addAsStrings(1,3));
+
+
+    int[] i = {5, 8, 7, 7};
+//    ArrayList<Integer>z=Arrays.asList(i);
+    System.out.println(Arrays.toString(i));
+
   }
 
   static int addAsStrings(int n1, int n2)
   {
     return Integer.parseInt( ""+n1+n2);
   }
-
+static void p(int i){
+  double d=1.0;
+  float f=(float) d;
+  }
 }

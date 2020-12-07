@@ -43,7 +43,7 @@ public class Eratosthenes
         {
           sieve[i * j] = false;
         }
-      }
+     }
     }
   }
 
@@ -57,5 +57,6 @@ public class Eratosthenes
     Eratosthenes era=new Eratosthenes(16);
     for (int i=0; i<era.sieve.length; i++)
       System.out.println(""+i+" : "+era.isSimple(i));
+    System.out.println(Arrays.toString(era.sieve));
   }
 }
