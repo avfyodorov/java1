@@ -28,6 +28,17 @@ public class T16
     return zdt.toInstant();
   }
 
+  //output == 2020-01-01T12:00:00.000000001Z
+  Instant createInstant2()
+//  , который возвращает Instant, соответствующий 1 января 2020 года, 15 часов
+//  и одна наносекунда по Московскому времени
+  {
+    return ZonedDateTime
+            .parse("2020-01-01T12:00:00.000000001Z")
+//            .withZoneSameInstant(ZoneId.of("Europe/Moscow"))
+            .toInstant();
+  }
+
   public static void main(String[] args)
   {
     T16 t16 = new T16();
@@ -48,7 +59,9 @@ public class T16
     System.out.println(zid1.getRules().getOffset(Instant.now()));
 
 //output -== 2020-01-01T12:00:00.000000001Z
+    System.out.println("zoned instans");
     System.out.println(t16.createInstant());
+    System.out.println(t16.createInstant2());
 
 //    Укажите формат для правильного вывода java.util.Date в виде "04.01.2020 15:58:37.346".
 //    Формат укажите в двойных кавычках, как строка в Java - "aa bb"

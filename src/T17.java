@@ -42,9 +42,14 @@ public class T17
 
   public static void main(String[] args)
   {
-    T17 t17 = new T17();
-    System.out.println(t17.createFolder("qqqq"));
+    Path p = Paths.get("");
+String s= String.valueOf(p.toAbsolutePath());
+    System.out.println( s);
 
-    t17.replaceF("qyqy9.txt");
+
+//    T17 t17 = new T17();
+//    System.out.println(t17.createFolder("qqqq"));
+
+//    t17.replaceF("qyqy9.txt");
   }
 }

@@ -49,26 +49,6 @@ public class Censor {
             res = res.replaceAll(str, "*".repeat(str.length()));
          }
 
-      /*
-      for (int i = 0; i < obscene.length; i++)
-      {
-//подготовить звёздочки
-//        StringBuilder stars = new StringBuilder();
-//        for (int j = 0; j < obscene[i].length(); j++)
-//          stars.append('*');
-     String stars= "*".repeat(obscene[i].length());   //Или собрать в цикле с помощью StringBuilder
-
-
-//искать слово в строке
-        int j = res.indexOf(obscene[i]);
-        while (j != -1)
-        {
-          res = res.substring(0, j) + stars.toString() + res.substring(j + stars.length());
-          j = res.indexOf(obscene[i]);
-        }
-      }
- */
-
 //записать обратно
          System.out.println(res);
          f.seek(0);

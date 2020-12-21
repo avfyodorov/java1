@@ -44,17 +44,11 @@ public class Coder
       try
       {
         byte[] bytes = reader.readAllBytes();
-//        System.out.println(Arrays.toString(bytes));
 
         for (int i = 0; i < bytes.length; i++)
-//          if (bytes[i] < code.length)
             bytes[i] = (byte) code[bytes[i]];
-//          else
-//            bytes[i] = (byte) '*';
 
         writer.write(bytes);
-//        System.out.println(Arrays.toString(bytes));
-
 
       } finally
       {
@@ -65,7 +59,6 @@ public class Coder
     {
       toLog(logName, e.getMessage());
     }
-
   }
 
   public static void main(String[] args)

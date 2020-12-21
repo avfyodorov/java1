@@ -18,6 +18,12 @@ public class Task2
     System.out.println(s_good);
   }
 
+  public static final String X_EQUALS = "x = ";
+  public static final String Y_EQUALS = "y = ";
+  public static final String A_EQUALS = "a = ";
+  public static final String B_EQUALS = "b = ";
+  public static final String C_EQUALS = "c = ";
+
   public static void print_call(String funcName, int x, int y)
   {
     System.out.print("Вызвана функция " + funcName + "() с параметрами x = ");
@@ -80,6 +86,25 @@ public class Task2
     addition(528, 387);
     multiplication(124, 87);
     multiplication(1528, 3);
+
+    //- вызвать функцию calculation() без параметров
+    calculation();
+    //- вызвать функцию calculation() c параметрами 11, 25 и 410
+    calculation(11, 25, 410);
+    //- вызвать функцию calculation() c параметрами 100, 9 и 98
+    calculation(100, 9, 98);
   }
+
+  public static void calculation(int a, int b, int c) {
+    System.out.print("Вызвана функция calculation() с параметрами ");
+    System.out.print(A_EQUALS + a + ", ");
+    System.out.print(B_EQUALS + b + ", ");
+    System.out.println(C_EQUALS + c);
+
+    System.out.println("a + b + c = " + addition(addition(a, b), c));
+    System.out.println("a^3 = " + multiplication(multiplication(a, a), a));
+    System.out.println("a - (b + c^2) = " + subtraction(a, addition(b, multiplication(c, c))));
+  }
+
 }
 

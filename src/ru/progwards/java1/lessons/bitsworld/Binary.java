@@ -21,7 +21,13 @@ public class Binary
     String res = "";
 
     for (int i = 0; i < 8; i++)
-      res = ((((1 << i) & num) == 0) ? "0" : "1") + res;
+    {
+//логическое  & c 1
+      res = (((num & 1) == 0) ? "0" : "1") + res;
+//Сдвинуть число на 1 бит
+      num = (byte) (num >> 1);
+    }
+//    res = ((((1 << i) & num) == 0) ? "0" : "1") + res;
 
     return res;
   }

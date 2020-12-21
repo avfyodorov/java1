@@ -123,7 +123,7 @@ public class GoodsWithLambda
                .collect(Collectors.toList());
   }
 }
-
+/*
 class Goods
 {
   @Override
@@ -155,3 +155,4 @@ class Goods
 }
 
 
+*/
