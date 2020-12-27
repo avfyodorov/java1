@@ -29,6 +29,11 @@ public List<Integer> listAction(List<Integer> list)
 
   public static void main(String[] args)
   {
+    List<Integer> list= new ArrayList<>(List.of(5, 5, 4, 2, 3, 4));
+//    Integer m =Collections.min(list);
+    list.remove(Collections.min(list));
+    System.out.println(list);
+
     List<Integer> items = new ArrayList();
     for(int i=0; i<5; i++)
       items.add(i);

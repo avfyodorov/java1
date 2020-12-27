@@ -15,8 +15,11 @@ package ru.progwards.java1.lessons.io2;
 //        Должен выдать результат:
 //        **** — строго типизированный объектно-ориентированный язык программирования, разработанный компанией *** ************ (в последующем приобретённой компанией ******).
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Scanner;
 
 public class Censor {
    public static class CensorException extends Exception {
@@ -44,7 +47,7 @@ public class Censor {
          f.readFully(b);
          String res = new String(b);
 
-//подготовить звёздочки искать слово в строке
+//подготовить звёздочки искать сq   лово в строке
          for (String str : obscene) {
             res = res.replaceAll(str, "*".repeat(str.length()));
          }
@@ -60,7 +63,38 @@ public class Censor {
       }
    }
 
-//  Буря мглою небо кроет,
+   public static void censorFile2(String inoutFileName, String[] obscene) throws CensorException {
+      StringBuilder text = new StringBuilder();
+      // читаем файл в строку
+      try (FileReader fr = new FileReader(inoutFileName)) {
+         Scanner sc = new Scanner(fr);
+         while (sc.hasNextLine()) {
+            text.append(sc.nextLine());
+         }
+      } catch (Exception e) {
+         throw new CensorException(e.getMessage(), inoutFileName);
+      }
+      // ищем совпадения и меняем на *
+      for (int i = 0; i < obscene.length; i++) {
+         int iO = text.indexOf(obscene[i]);
+         if (iO != -1) {
+            StringBuilder obs = new StringBuilder("");
+            for (char c : obscene[i].toCharArray()) {
+               c = '*';
+               obs.append(c);
+            }
+            text.replace(iO, iO + obscene[i].length(), obs.toString());
+         }
+      }
+      // записываем в файл
+      try (FileWriter fw = new FileWriter(inoutFileName)) {
+         fw.write(text.toString());
+      } catch (Exception e) {
+         throw new CensorException(e.getMessage(), inoutFileName);
+      }
+   }
+
+   //  Буря мглою небо кроет,
 //  Вихри снежные крутя;
 //  То как зверь она завоет,
 //  То заплачет как дитя.
