@@ -1,161 +1,217 @@
 package ru.progwards.java2.lessons.basetypes;
 
-        import java.util.Iterator;
-        import java.util.Spliterator;
-        import java.util.function.Consumer;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class BiDirList<T> implements Iterable<T>{
+public class BiDirList<T> implements
+        Iterable<BiDirList.ListItem>,
+        Iterator<BiDirList.ListItem> {
+
    @Override
-   public Iterator<T> iterator() {
-      return new Iterator<T>() {
-         Node<T> current = new Node<>(null,head,null);
-         @Override
-         public boolean hasNext() {
-            if (current.next==null) return false;
-            return true;
-         }
-         @Override
-         public T next() {
-            T val = current.next.value;
-            current = current.next;
-            return val;
-         }
-      };
+   public Iterator<BiDirList.ListItem> iterator() {
+      return this;
    }
 
    @Override
-   public void forEach(Consumer<? super T> action) {
-      Node<T> tmp = head;
-      while (tmp!=null){
-         action.accept(tmp.value);
-         tmp = tmp.next;
+   public boolean hasNext() {
+      if (index < count_elem) return true;
+      index = 0;
+      currentIterator = head;
+      return false;
+   }
+
+   @Override
+   public ListItem<T> next() {
+      if (!hasNext()) {
+         throw new NoSuchElementException();
+      }
+      if (index == 0) currentIterator = head;
+      ++index;
+      currentIterator = currentIterator.getNext();
+      return index >= count_elem ? tail : currentIterator.getPrevious();
+   }
+
+   class ListItem<T> {
+
+      private T item;
+      private ListItem<T> next;
+      private ListItem<T> previous;
+
+      ListItem(T item) {
+         this.item = item;
+      }
+
+      T getItem() {
+         return item;
+      }
+
+      void setNext(ListItem<T> item) {
+         next = item;
+      }
+
+      ListItem<T> getNext() {
+         return next;
+      }
+
+      void setPrevious(ListItem<T> item) {
+         previous = item;
+      }
+
+      ListItem<T> getPrevious() {
+         return previous;
+      }
+
+      @Override
+      public String toString() {
+         return "Item - " + item;
       }
    }
 
-   private class Node <T> {
-      Node<T> next;
-      Node<T> previous;
-      T value;
+   private ListItem<T> head;
+   private ListItem<T> tail;
+   private ListItem<T> currentIterator;
+   private int count_elem = 0;
+   private int index = 0;
 
-      public Node(T val){
-         this.value=val;
-      }
-      public Node(T val,Node<T> next,Node<T> previous){
-         this.value = val;
-         this.next = next;
-      }
-      public void setNext(Node<T> next){
-         this.next=next;
-         if (next != null)
-            next.previous = this;
-      }
-      public void setPrevious(Node<T> previous){
-         this.previous = previous;
-         if (previous!=null)
-            previous.next = this;
-      }
+   ListItem<T> getHead() {
+      return head;
    }
-   int size;
-   Node <T> head;
-   Node <T> tail;
-   public BiDirList(){
-      size =0;
-      head = null;
-      tail = null;
+
+   ListItem<T> getTail() {
+      return tail;
    }
-   public void addLast(T item){
-      if(size == 0){
-         head = new Node<T>(item);
-         tail = head;
+
+   public void addLast(T item) {
+      ListItem<T> li = new ListItem<>(item);
+      if (tail == null) {
+         tail = li;
+         head = li;
       } else {
-         tail.setNext(new Node<T>(item));
-         tail = tail.next;
+         tail.setNext(li);
+         li.setPrevious(tail);
+         tail = li;
       }
-      size++;
+      ++count_elem;
    }
-   public void addFirst(T item){
-      if(size == 0){
-         head= new Node<T>(item);
-         tail = head;
+
+   public void addFirst(T item) {
+      ListItem<T> li = new ListItem<>(item);
+      if (head == null) {
+         head = li;
+         tail = li;
       } else {
-         head.setPrevious(new Node <T>(item));
-         head = head.previous;
+         li.setNext(head);
+         head.setPrevious(li);
+         head = li;
       }
-      size++;
+      ++count_elem;
    }
-   public void remove(T item){
-      Node <T> tmp = head;
-      while (tmp!=null){
-         if (tmp.value.equals(item)){
-            size--;
-            if (tmp.previous!=null){
-               tmp.previous.setNext(tmp.next);
-               if (tmp.next == null){
-                  tail = tail.previous;
+
+   public void remove(T item) {
+      if (count_elem == 1 && head.getItem().equals(item)) {
+         head = null;
+         tail = null;
+         count_elem = 0;
+      } else {
+         ListItem<T> current = head;
+         while (current != null) {
+            if (current.getItem().equals(item)) {
+               if (current.getPrevious() == null) {
+                  head = current.getNext();
+                  current.getNext().setPrevious(null);
+               } else if (current.getNext() == null) {
+                  tail = current.getPrevious();
+                  current.getPrevious().setNext(null);
+               } else {
+                  current.getPrevious().setNext(current.getNext());
+                  current.getNext().setPrevious(current.getPrevious());
                }
-            } else {
-               if (tail == head){
-                  tail = null;
-               }
-               head = head.next;
-               if (head!=null)
-                  head.previous =null;
+               --count_elem;
+               break;
             }
-            return;
+            current = current.getNext();
          }
-         tmp = tmp.next;
       }
    }
-   public T at(int i){
-      if (i < 0 || i>=size){
-         throw new NullPointerException();
-      } else {
 
-         Node <T> tmp = head;
-         for(int j=0;j<i;j++){
-            tmp = tmp.next;
-         }
-         return tmp.value;
+   public T at(int i) {
+      if (i < 0 || i >= count_elem) {
+         throw new IndexOutOfBoundsException("Index: " + i + ", Size: " + count_elem);
       }
+      ListItem<T> current = head;
+      if (i < count_elem / 2) {
+         for (int j = 0; j < i; ++j)
+            current = current.getNext();
+      } else {
+         current = tail;
+         for (int j = count_elem - 1; j > i; --j)
+            current = current.getPrevious();
+      }
+      return current.getItem();
    }
-   public int size(){
-      return size;
+
+   public int size() {
+      return count_elem;
    }
-   public static<T> BiDirList<T> from(T[] array){
-      BiDirList<T> biDirList = new BiDirList<>();
-      for(T x:array)
-         biDirList.addLast(x);
-      return biDirList;
+
+   public static <T> BiDirList<T> from(T[] array) {
+      BiDirList<T> list = new BiDirList<>();
+      for (T a : array)
+         list.addLast(a);
+      return list;
    }
-   public static<T> BiDirList<T> of(T...array){
-      BiDirList<T> biDirList = new BiDirList<>();
-      for(T x:array)
-         biDirList.addLast(x);
-      return biDirList;
+
+   public static <T> BiDirList<T> of(T... array) {
+      BiDirList<T> list = new BiDirList<>();
+      for (T a : array)
+         list.addLast(a);
+      return list;
    }
-   public void toArray(T[] array){
-      Node <T> tmp = head;
-      int i =0;
-      while (tmp!=null){
-         array[i] = tmp.value;
+
+   public void toArray(T[] array) {
+      int len = count_elem;
+      if (len > array.length) len = array.length;
+      ListItem<T> current = head;
+      for (int i = 0; i < len; ++i) {
+         array[i] = current.getItem();
+         current = current.getNext();
       }
    }
 
    public static void main(String[] args) {
-      BiDirList <Integer> biDirList = new BiDirList<>();
-      biDirList.addFirst(1);
-      biDirList.addLast(2);
-      biDirList.addLast(3);
-      for(var a:biDirList){
-         System.out.println(a);
+      Integer[] arr = {1, 2, 3, 4, 5};
+      BiDirList<Integer> list = from(arr);
+      list.forEach(System.out::println);
+      System.out.println("-----------");
+
+      list = of(5, 6, 7, 8, 9);
+      list.addLast(1);
+      list.addFirst(3);
+      list.forEach(System.out::println);
+
+      list.toArray(arr);
+
+      BiDirList<Integer>.ListItem<Integer> current = list.getHead();
+      list.remove(3);
+      list.remove(6);
+      System.out.println(list.at(0));
+//        current = list.getHead();
+      System.out.println("Size - " + list.size());
+      while (current != null) {
+         System.out.println(current.getItem());
+         current = current.getNext();
       }
-      biDirList.forEach(System.out::println);
-      System.out.println(biDirList.at(1));
-      biDirList.remove(3);
-      biDirList.remove(1);
-      biDirList.addLast(4);
-      biDirList.remove(2);
-      System.out.println(biDirList.at(0));
-      Iterator<Integer> it = biDirList.iterator();
+      System.out.println("-----------");
+
+      current = list.getTail();
+      while (current != null) {
+         System.out.println(current.getItem());
+         current = current.getPrevious();
+      }
+      System.out.println("-----------");
+
+      while (list.hasNext()) {
+         System.out.println(list.next());
+      }
    }
 }
