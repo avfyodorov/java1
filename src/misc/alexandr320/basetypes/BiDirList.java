@@ -1,8 +1,8 @@
-package misc.alexandr320;
+package misc.alexandr320.basetypes;
 
 
-        import java.util.Iterator;
-        import java.util.NoSuchElementException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class BiDirList<T> implements Iterable<T> {   // Реализовать класс BiDirList - двунаправленный связный список
    public static void main(String[] args) {
