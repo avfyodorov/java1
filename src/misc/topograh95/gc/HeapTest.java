@@ -1,6 +1,6 @@
 
 
-package ru.progwards.java2.lessons.gc;
+package misc.topograh95.gc;
 
 //import ru.progwards.java2.lessons.gc.OutOfMemoryException;
 
@@ -52,11 +52,11 @@ public class HeapTest {
         return size > (maxSize-allocated)-1 ? (maxSize-allocated)/2+1 : size+1;
     }
 
-    public static <OutOfMemoryException> void main(String[] args)
-      throws InvalidPointerException,
-      ru.progwards.java2.lessons.gc.InvalidPointerException,
-      ru.progwards.java2.lessons.gc.OutOfMemoryException {
-        Heap heap = new Heap(maxSize);
+    public static <OutOfMemoryException extends Throwable> void main(String[] args)
+      throws
+            InvalidPointerException,
+      OutOfMemoryException {
+      Heap heap = new Heap(maxSize);
         ArrayDeque<Block> blocks = new ArrayDeque<>();
         int count = 0;
         int allocTime = 0;

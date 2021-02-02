@@ -17,6 +17,37 @@ public class T17
     return p.toAbsolutePath().getParent().getParent().toString();
   }
 
+  String createFolder2(String name) {
+    File file = new File(name);
+    file.mkdir();//Создать каталог
+    Path path = Paths.get(file.getAbsolutePath());
+    String result = String.valueOf(path.getParent().normalize());
+    //System.out.println(result);
+    return result;
+  }
+  public static void main(String[] args)
+  {
+    String name="temp9";
+    File f=new File(name);
+
+    Path p = Paths.get(name);
+    String t= p.toAbsolutePath().getParent().getParent().toString();
+    System.out.println(t);
+
+    String s= String.valueOf(p.toAbsolutePath());
+    System.out.println( s);
+
+    Path path = Paths.get(f.getAbsolutePath());
+    String result = String.valueOf(path.getParent().getParent().normalize());
+    System.out.println(result);
+
+
+//    T17 t17 = new T17();
+//    System.out.println(t17.createFolder("qqqq"));
+
+//    t17.replaceF("qyqy9.txt");
+  }
+
   //  Реализовать метод с сигнатурой
   boolean replaceF(String name)
   //который заменяет в файле все F на f, в случае ошибки вернуть false.
@@ -40,16 +71,4 @@ public class T17
     }
   }
 
-  public static void main(String[] args)
-  {
-    Path p = Paths.get("");
-String s= String.valueOf(p.toAbsolutePath());
-    System.out.println( s);
-
-
-//    T17 t17 = new T17();
-//    System.out.println(t17.createFolder("qqqq"));
-
-//    t17.replaceF("qyqy9.txt");
-  }
 }

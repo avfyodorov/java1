@@ -25,8 +25,7 @@ public class ArraySort
     for (int i = 0; i < a.length; i++)
       for (int j = i + 1; j < a.length; j++)
       {
-        Animal food = (Animal) a[i];
-        if (food.compareWeight(a[j]) == CompareWeight.CompareResult.GREATER)
+        if (a[i].compareWeight(a[j]) == CompareWeight.CompareResult.GREATER)
         {
           z = a[i];
           a[i] = a[j];

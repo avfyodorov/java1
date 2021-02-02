@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class SimpleCalculatorTest
+public class SimpleCalculatorTest0
 {
   @Parameterized.Parameter(0)
 public int v1;

@@ -38,5 +38,6 @@ public class ArrayIterator<T> implements Iterator<T>
       System.out.print(i + ", ");
 
     System.out.println("");
+//    System.out.println(5.234 % 2);
   }
 }

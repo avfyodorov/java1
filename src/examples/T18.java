@@ -77,5 +77,9 @@ class Person
     for (int i = 0; i < persons.length; i++)
       System.out.format(locale, "|%-10s|%2$td/%2$tm/%2$tY|%3$,10.2f|\n", persons[i].name, persons[i].birth, persons[i].salary);
   }
-
+  void printPersons2(Person[] persons) {
+    for (int i = 0; i < persons.length; i++) {
+      System.out.format(Locale.FRENCH,"|%-10s|%2$td/%2$tm/%2$tY|%3$,10.2f|\n", persons[i].name, persons[i].birth, persons[i].salary);//
+    }
+  }
 }

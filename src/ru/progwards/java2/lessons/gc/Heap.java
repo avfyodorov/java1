@@ -1,4 +1,4 @@
-package ru.progwards.java2.lessons.gc;
+ package ru.progwards.java2.lessons.gc;
 
 import java.util.*;
 
