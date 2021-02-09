@@ -42,163 +42,149 @@ package ru.progwards.java1.lessons.sets;
 
 import java.util.*;
 
-public class ProductAnalytics
-{
-  private List<Shop> shops;// - список магазинов
+public class ProductAnalytics {
+   private List<Shop> shops;// - список магазинов
 
-  private List<Product> products;// - список всех имеющихся в ассортименте товаров.
+   private List<Product> products;// - список всех имеющихся в ассортименте товаров.
 
-  //        Все товары, присутствующие в магазинах, обязательно присутствуют в products,
+   //        Все товары, присутствующие в магазинах, обязательно присутствуют в products,
 //        но так же тут могут быть и товары, которых нет в магазинах
 //
-  public ProductAnalytics(List<Product> products, List<Shop> shops)
-  {
-    this.products = products;
-    this.shops = shops;
-  }
+   public ProductAnalytics(List<Product> products, List<Shop> shops) {
+      this.products = products;
+      this.shops = shops;
+   }
 
-  public Set<Product> existInAll()
+   public Set<Product> existInAll()
 //- товары из products,  которые имеются во всех магазинах
-  {
-    Set<Product> res = new HashSet<>(products);
+   {
+      Set<Product> res = new HashSet<>(products);
 
-    for (int i = 0; i < shops.size(); i++)
-      res.retainAll(shops.get(i).getProducts());
+      for (Shop shop : shops)
+         res.retainAll(shop.getProducts());
 
-    return res;
-  }
+      return res;
+   }
 
-  public Set<Product> existAtListInOne()
-  //- товары из products, которые имеются хотя бы в одном магазине
-  {
+   public Set<Product> existAtListInOne()
+   //- товары из products, которые имеются хотя бы в одном магазине
+   {
 //начинаем с 1-го магазина
-    Set<Product> res = new HashSet<>(shops.get(0).getProducts());
+      Set<Product> res = new HashSet<>(shops.get(0).getProducts());
 
 //   добавить все остальные
-    for (int i = 1; i < shops.size(); i++)
-      res.addAll(shops.get(i).getProducts());
+      for (int i = 1; i < shops.size(); i++)
+         res.addAll(shops.get(i).getProducts());
 
-    return res;
-  }
+      return res;
+   }
 
-  public Set<Product> notExistInShops()
+   public Set<Product> notExistInShops()
 //- товары из products,  которых нет ни в одном магазине
-  {
-    Set<Product> res = new HashSet<>(products);
+   {
+      Set<Product> res = new HashSet<>(products);
 
-    for (int i = 0; i < shops.size(); i++)
-      res.removeAll(shops.get(i).getProducts());
+      for (int i = 0; i < shops.size(); i++)
+         res.removeAll(shops.get(i).getProducts());
 
-    return res;
-  }
+      return res;
+   }
 
-  public Set<Product> existOnlyInOne()
+   public Set<Product> existOnlyInOne()
 //- товары из products,  которые есть только в одном магазине
-  {
-    Set<Product> res = new HashSet<>();
+   {
+      Set<Product> res = new HashSet<>();
 
 //цикл по всем продуктам
-    for (int i = 0; i < products.size(); i++)
-    {
-      Product p = products.get(i);
-      int n = 0;
+      for (Product p : products) {
+         int n = 0;
 
 //по всем магазинам
-      for (int j = 0; j < shops.size(); j++)
-      {
-        if (shops.get(j).getProducts().contains(p))
-          n++;
-      }
+         for (Shop shop : shops) {
+            if (shop.getProducts().contains(p))
+               n++;
+         }
 
 //добавлять если уникальный
-      if (n == 1)
-        res.add(p);
-    }
+         if (n == 1)
+            res.add(p);
+      }
 
-    return res;
-  }
+      return res;
+   }
 
-  public static void main(String[] args)
-  {
-    List<Product> avail_prods = new ArrayList<>();
-    avail_prods.add(new Product("1"));
-    avail_prods.add(new Product("3"));
-    avail_prods.add(new Product("5"));
-    avail_prods.add(new Product("8"));
-    avail_prods.add(new Product("2"));
+   public static void main(String[] args) {
+      List<Product> avail_prods = new ArrayList<>();
+      avail_prods.add(new Product("1"));
+      avail_prods.add(new Product("3"));
+      avail_prods.add(new Product("5"));
+      avail_prods.add(new Product("8"));
+      avail_prods.add(new Product("2"));
 
-    List<Product> pr1 = new ArrayList<>();
-    pr1.add(new Product("1"));
-    pr1.add(new Product("2"));
-    pr1.add(new Product("3"));
-    Shop shop1 = new Shop(pr1);
+      List<Product> pr1 = new ArrayList<>();
+      pr1.add(new Product("1"));
+      pr1.add(new Product("2"));
+      pr1.add(new Product("3"));
+      Shop shop1 = new Shop(pr1);
 
-    List<Product> pr2 = new ArrayList<>();
-    pr2.add(new Product("5"));
-    pr2.add(new Product("2"));
-    pr2.add(new Product("3"));
-    Shop shop2 = new Shop(pr2);
+      List<Product> pr2 = new ArrayList<>();
+      pr2.add(new Product("5"));
+      pr2.add(new Product("2"));
+      pr2.add(new Product("3"));
+      Shop shop2 = new Shop(pr2);
 
-    List<Shop> shops = new ArrayList<>();
-    shops.add(shop1);
-    shops.add(shop2);
+      List<Shop> shops = new ArrayList<>();
+      shops.add(shop1);
+      shops.add(shop2);
 
-    ProductAnalytics mainobj = new ProductAnalytics(avail_prods, shops);
-    System.out.println("existsinall: " + mainobj.existInAll());
-    System.out.println("existinone : " + mainobj.existAtListInOne());
-    System.out.println("not exist  : " + mainobj.notExistInShops());
-    System.out.println("exist only : " + mainobj.existOnlyInOne());
+      ProductAnalytics mainobj = new ProductAnalytics(avail_prods, shops);
+      System.out.println("existsinall: " + mainobj.existInAll());
+      System.out.println("existinone : " + mainobj.existAtListInOne());
+      System.out.println("not exist  : " + mainobj.notExistInShops());
+      System.out.println("exist only : " + mainobj.existOnlyInOne());
 
-  }
+   }
 }
 
 class Shop //- магазин
 {
-  private List<Product> products;// - товары имеющиеся в магазине
+   private List<Product> products;// - товары имеющиеся в магазине
 
-  public Shop(List<Product> products)
-  {
-    this.products = products;
-  }
+   public Shop(List<Product> products) {
+      this.products = products;
+   }
 
-  public List<Product> getProducts()
-  {
-    return products;
-  }
+   public List<Product> getProducts() {
+      return products;
+   }
 }
 
-class Product
-{
-  @Override
-  public boolean equals(Object o)
-  {
-    if (this == o) return true;
-    if (!(o instanceof Product)) return false;
-    Product product = (Product) o;
-    return code.equals(product.code);
-  }
+class Product {
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof Product)) return false;
+      Product product = (Product) o;
+      return code.equals(product.code);
+   }
 
-  @Override
-  public int hashCode()
-  {
-    return Objects.hash(code);
-  }
+   @Override
+   public int hashCode() {
+      return Objects.hash(code);
+   }
 
-  private String code; //уникальный артикул товара
+   private String code; //уникальный артикул товара
 
-  public Product(String code)
-  {
-    this.code = code;
-  }
+   public Product(String code) {
+      this.code = code;
+   }
 
-  public String getCode()
-  {
-    return code;
-  }
+   public String getCode() {
+      return code;
+   }
 
-  @Override
-  public String toString()
-  {
-    return "'" + code + '\'';
-  }
+   @Override
+   public String toString() {
+      return "'" + code + '\'';
+   }
 }

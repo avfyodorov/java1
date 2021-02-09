@@ -2,7 +2,6 @@ package ru.progwards.java1.lessons.interfaces;
 
 public class CalculateFibonacci
 {
-
   //проверять параметр n на совпадение с последним рассчитанным значением,
 // и если совпадает - возвращать уже готовый результат.
 // Если не совпадает - рассчитывать и сохранять в статической переменной lastFibo.
@@ -67,6 +66,7 @@ public class CalculateFibonacci
   {
     System.out.println(fiboNumber(9));
     System.out.println(fiboNumber(9));
-    System.out.println(fiboNumber(11));
+    System.out.println(fiboNumber(1));
+    System.out.println(new CacheInfo());
   }
 }

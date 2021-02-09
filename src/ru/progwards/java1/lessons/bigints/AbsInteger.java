@@ -38,6 +38,7 @@ public abstract class AbsInteger
   {
     ByteInteger b = new ByteInteger((byte) 123);
     System.out.println(b.toString());
+    System.out.println(add(new IntInteger(12345),new ByteInteger((byte) 8)));
   }
 }
 
