@@ -42,6 +42,7 @@ public class Arrays
 
   public int sumArrayItems(int[] a)
   {
+
     int sum = 0;
     for (int v : a)
       sum = sum + v;
