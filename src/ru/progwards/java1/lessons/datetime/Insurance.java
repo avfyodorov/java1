@@ -106,54 +106,77 @@ public class Insurance
     return "Insurance issued on " + start + valid;
   }
 
-  public static void main(String[] args) throws InterruptedException
-  {
-    Insurance insurance = new Insurance("2020-04-03T18:03:30.7495944+03:00[Europe/Moscow]", FormatStyle.FULL);
-    insurance.setDuration("1", FormatStyle.SHORT);
+//  public static void main(String[] args) throws InterruptedException
+//  {
+//    Insurance insurance = new Insurance("2020-04-03T18:03:30.7495944+03:00[Europe/Moscow]", FormatStyle.FULL);
+//    insurance.setDuration("1", FormatStyle.SHORT);
+//
+//    System.out.println(insurance);
+//
+////    Insurance insurance = new Insurance(ZonedDateTime.now());
+////    System.out.println(insurance);
+////
+////    insurance.setDuration("PT1S", FormatStyle.FULL);
+////    System.out.println(insurance);
+////    Thread.sleep(1001);
+////    System.out.println(insurance);
+////
+////    System.out.println(Duration.parse("PT73S"));
+////
+////    //Period duration1=Period.parse("0000-01-01T00:00:11");
+////    LocalDateTime v = LocalDateTime.parse("0000-01-01T00:00:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+////    ZonedDateTime z = insurance.start.plusYears(v.getYear()).plusMonths(v.getMonthValue()).
+////            plusDays(v.getDayOfMonth()).
+////            plusHours(v.getHour()).plusMinutes(v.getMinute()).plusSeconds(v.getSecond());
+////    System.out.println(Duration.between(insurance.start, z));
+////    insurance = new Insurance("2020-03-30T18:03:30.7495944+03:00[Europe/Moscow]", FormatStyle.FULL);
+////    System.out.println(insurance);
+////    insurance = new Insurance("2020-03-30T18:03:30.7495944", FormatStyle.LONG);
+////    System.out.println(insurance);
+////    insurance = new Insurance("2020-03-30", FormatStyle.SHORT);
+////    System.out.println(insurance);
+//
+///*
+//2020-03-30T18:03:30.749594400+03:00[Europe/Moscow]
+//2020-03-30T18:13:25.4363104
+//2020-03-30
+//*/
+////    ZonedDateTime zdf;
+////    LocalDate ld = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse("2020-03-30"));
+////    zdf = ld.atStartOfDay(ZoneId.systemDefault());
+////    System.out.println(zdf);
+////
+////    LocalDateTime localDateTime = LocalDateTime.from(DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse("2020-03-30T18:13:25.4363104"));
+////    zdf = localDateTime.atZone(ZoneId.systemDefault());
+////    System.out.println(zdf);
+////
+////    zdf = ZonedDateTime.from(DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2020-03-30T18:03:30.749594400+03:00[Europe/Moscow]"));
+////    System.out.println(zdf);
+////
+//  }
+  public static void main(String[] args) {
+    Instant instant1 = Instant.now();
+    ZonedDateTime zdt1 = instant1.atZone(ZoneId.of("Europe/Moscow"));
+    Instant instant2 = instant1.plusSeconds(180);
+    ZonedDateTime zdt2 = instant2.atZone(ZoneId.of("Europe/Moscow"));
+    System.out.println(zdt1.toString());
+    Insurance test = new Insurance(zdt1);
+    test.setDuration(zdt2);
+    System.out.println( test.getDuration().toMillis());
+    System.out.println(test.checkValid(zdt2));
+    System.out.println(test.toString());
+    System.out.println();
+//    2021-03-29T13:52:14.333695900+03:00[Europe/Moscow]
+//    180000
+//    true
+//    Insurance issued on 2021-03-29T13:52:14.333695900+03:00[Europe/Moscow] is valid
 
-    System.out.println(insurance);
 
-//    Insurance insurance = new Insurance(ZonedDateTime.now());
-//    System.out.println(insurance);
-//
-//    insurance.setDuration("PT1S", FormatStyle.FULL);
-//    System.out.println(insurance);
-//    Thread.sleep(1001);
-//    System.out.println(insurance);
-//
-//    System.out.println(Duration.parse("PT73S"));
-//
-//    //Period duration1=Period.parse("0000-01-01T00:00:11");
-//    LocalDateTime v = LocalDateTime.parse("0000-01-01T00:00:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-//    ZonedDateTime z = insurance.start.plusYears(v.getYear()).plusMonths(v.getMonthValue()).
-//            plusDays(v.getDayOfMonth()).
-//            plusHours(v.getHour()).plusMinutes(v.getMinute()).plusSeconds(v.getSecond());
-//    System.out.println(Duration.between(insurance.start, z));
-//    insurance = new Insurance("2020-03-30T18:03:30.7495944+03:00[Europe/Moscow]", FormatStyle.FULL);
-//    System.out.println(insurance);
-//    insurance = new Insurance("2020-03-30T18:03:30.7495944", FormatStyle.LONG);
-//    System.out.println(insurance);
-//    insurance = new Insurance("2020-03-30", FormatStyle.SHORT);
-//    System.out.println(insurance);
 
-/*
-2020-03-30T18:03:30.749594400+03:00[Europe/Moscow]
-2020-03-30T18:13:25.4363104
-2020-03-30
-*/
-//    ZonedDateTime zdf;
-//    LocalDate ld = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse("2020-03-30"));
-//    zdf = ld.atStartOfDay(ZoneId.systemDefault());
-//    System.out.println(zdf);
-//
-//    LocalDateTime localDateTime = LocalDateTime.from(DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse("2020-03-30T18:13:25.4363104"));
-//    zdf = localDateTime.atZone(ZoneId.systemDefault());
-//    System.out.println(zdf);
-//
-//    zdf = ZonedDateTime.from(DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2020-03-30T18:03:30.749594400+03:00[Europe/Moscow]"));
-//    System.out.println(zdf);
-//
   }
+   public Duration getDuration() {
+      return duration;
+   }
 
   public  enum FormatStyle
   {SHORT, LONG, FULL} //- стиль формата даты-времени

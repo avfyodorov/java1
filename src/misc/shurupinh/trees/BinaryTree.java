@@ -1,5 +1,6 @@
 package misc.shurupinh.trees;
 
+
 import java.util.function.Consumer;
 
 public class BinaryTree<K extends Comparable<K>, V> {

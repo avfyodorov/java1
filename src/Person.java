@@ -31,5 +31,18 @@ public class Person
     return country;
   }
 
+  @Override
+  public String toString() {
+    return "Person{" +
+            "name='" + name + '\'' +
+            ", age=" + age +
+            ", country='" + country + '\'' +
+            '}';
+  }
+
+  public static void main(String[] args) {
+    Person p=new Person("OCTOPUS", 61);
+    System.out.println(p);
+  }
 }
 

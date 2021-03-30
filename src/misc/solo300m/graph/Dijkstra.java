@@ -130,9 +130,9 @@ class Main{
                 {0,0,21,5,0,0,5,0,0},
                 {14,0,0,0,0,18,0,0,0}
         };
-        Dijkstra DA = new Dijkstra(graf);
-        DA.printSmMat();
-        int [][] path = DA.find(1);
-        DA.printSmMat(path);
+        Dijkstra da = new Dijkstra(graf);
+        da.printSmMat();
+        int [][] path = da.find(8);
+        da.printSmMat(path);
     }
 }

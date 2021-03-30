@@ -3,18 +3,18 @@ package misc.shurupinh.trees;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-public class AvlTree {
+ public class AvlTree<K extends Comparable<K>, V> {
 
 
-    static private AvlTreeLeaf root;
+     private AvlTreeLeaf root;
 
-    public AvlTree() {
-        root = null;
-    }
+     public AvlTree() {
+         root = null;
+     }
 
-    public static AvlTreeLeaf getRoot() {
-        return root;
-    }
+     public AvlTreeLeaf getRoot() {
+         return root;
+     }
 
     public class AvlTreeLeaf<K extends Comparable<K>, V> {
         K key;
@@ -123,28 +123,28 @@ public class AvlTree {
 ////////// METODS /////////////////////////////
 
 
-    public <K extends Comparable<K>, V> void put(K key, V value) {
-        var temp = new AvlTreeLeaf(key, value);
-        // System.out.println(root);
+     public void put(K key, V value) {
+         var temp = new AvlTreeLeaf(key, value);
+         // System.out.println(root);
 
-        if (root == null) root = temp;
+         if (root == null) root = temp;
 
-        else {
-            root.find(key).put(temp);
-        }
-        reBalance(temp);
-    }
+         else {
+             root.find(key).put(temp);
+         }
+         reBalance(temp);
+     }
 
-    public <K extends Comparable<K>> void delete(K key) {
-        var tmp = root.find(key);
-        AvlTreeLeaf newTmp;
+     public void delete(K key) {
+         var tmp = root.find(key);
+         AvlTreeLeaf newTmp;
 
-        if (tmp.key != key) {
-            //  System.out.println(" Key have not found!");
-            return;
-        }
+         if (tmp.key != key) {
+             //  System.out.println(" Key have not found!");
+             return;
+         }
 
-        if (tmp.left != null || tmp.right != null) {
+         if (tmp.left != null || tmp.right != null) {
 
             if (tmp.balance() > 0) {
                 newTmp = findLeft(tmp.right);
@@ -189,28 +189,28 @@ public class AvlTree {
         else reBalance(findLeft(root));
     }
 
-    public <K extends Comparable<K>, V> V find(K key) {
-        var x = root.find(key);
-        return x.key == key ? (V) x.value : null;
-    }
+     public V find(K key) {
+         var x = root.find(key);
+         return x.key == key ? (V) x.value : null;
+     }
 
-    public <K extends Comparable<K>, V> void change(K oldKey, K newKey) {
-        var x = root.find(oldKey);
-        V val;
-        if (x.key == oldKey) {
-            val = (V) x.value;
-            delete(oldKey);
-            put(newKey, val);
-        } else {
-            System.out.println(" Key have not found!");
-        }
-    }
+     public void change(K oldKey, K newKey) {
+         var x = root.find(oldKey);
+         V val;
+         if (x.key == oldKey) {
+             val = (V) x.value;
+             delete(oldKey);
+             put(newKey, val);
+         } else {
+             System.out.println(" Key have not found!");
+         }
+     }
 
-    public <K extends Comparable<K>, V> void process(Consumer<AvlTree.AvlTreeLeaf<K, V>> consumer) {
+     public void process(Consumer<AvlTree.AvlTreeLeaf> consumer) {
 
-        if (root != null)
-            root.stepz(consumer);
-    }
+         if (root != null)
+             root.stepz(consumer);
+     }
 
 ///---------------------------------------------------------------------------------------------------------------------
     /////!!!!!!!!!!!!!!!!!!!!!!!!!!!//// supports metods
@@ -296,17 +296,17 @@ public class AvlTree {
 
     }
 
-    static AvlTreeLeaf smallRight(AvlTreeLeaf mm) {
+     AvlTreeLeaf smallRight(AvlTreeLeaf mm) {
 
 
-        var b = mm.left;
-        var c = b.right;
+         var b = mm.left;
+         var c = b.right;
 
-        mm.left = c;
-        b.right = mm;
-        // System.out.println("sR mm/parent"+mm+"/"+mm.parent+" b="+b+"  c="+c+"  mm="+mm);
+         mm.left = c;
+         b.right = mm;
+         // System.out.println("sR mm/parent"+mm+"/"+mm.parent+" b="+b+"  c="+c+"  mm="+mm);
 
-        b.parent = mm.parent;
+         b.parent = mm.parent;
         mm.parent = b;
 
         if (c != null) c.parent = mm;
@@ -322,17 +322,17 @@ public class AvlTree {
         return b;
     }
 
-    static AvlTreeLeaf smallLeft(AvlTreeLeaf mm) {
-        var b = mm.right;
-        var c = b.left;
+     AvlTreeLeaf smallLeft(AvlTreeLeaf mm) {
+         var b = mm.right;
+         var c = b.left;
 
-        mm.right = c;
-        b.left = mm;
-        //  System.out.println("sL mm/parent"+mm+"/"+mm.parent+" b="+b+"  c="+c+"  mm="+mm);
+         mm.right = c;
+         b.left = mm;
+         //  System.out.println("sL mm/parent"+mm+"/"+mm.parent+" b="+b+"  c="+c+"  mm="+mm);
 
-        b.parent = mm.parent;
+         b.parent = mm.parent;
 
-        mm.parent = b;
+         mm.parent = b;
 
 
         if (c != null) c.parent = mm;
@@ -347,44 +347,17 @@ public class AvlTree {
     }
 
 
-    static AvlTreeLeaf bigRight(AvlTreeLeaf mm) {
+     AvlTreeLeaf bigRight(AvlTreeLeaf mm) {
 
-        var b = mm.left;
-        var c = b.right;
-        var n = c == null ? null : c.right;
-        var m = c == null ? null : c.left;
-        //   System.out.println("bR   mm="+mm+"  b="+b+"  c="+c+"  n/m="+n+"/"+m);
-        mm.left = n;
-        b.right = m;
-        c.right = mm;
-        c.left = b;
-
-        c.parent = mm.parent;
-
-        mm.parent = c;
-        b.parent = c;
-        if (n != null) n.parent = mm;
-        if (m != null) m.parent = b;
-
-        if (c.parent == null) root = c;
-        else {
-            if (c.parent.left == mm) c.parent.left = c;
-            else if (c.parent.right == mm) c.parent.right = c;
-        }
-        return c;
-    }
-
-    static AvlTreeLeaf bigLeft(AvlTreeLeaf mm) {
-
-        var b = mm.right;
-        var c = b.left;
-        var n = c == null ? null : c.left;
-        var m = c == null ? null : c.right;
-        //   System.out.println("bL   mm="+mm+"  b="+b+"  c="+c+"  n/m="+n+"/"+m);
-        mm.right = n;
-        b.left = m;
-        c.left = mm;
-        c.right = b;
+         var b = mm.left;
+         var c = b.right;
+         var n = c == null ? null : c.right;
+         var m = c == null ? null : c.left;
+         //   System.out.println("bR   mm="+mm+"  b="+b+"  c="+c+"  n/m="+n+"/"+m);
+         mm.left = n;
+         b.right = m;
+         c.right = mm;
+         c.left = b;
 
         c.parent = mm.parent;
 
@@ -401,18 +374,45 @@ public class AvlTree {
         return c;
     }
 
+     AvlTreeLeaf bigLeft(AvlTreeLeaf mm) {
 
-    static String viewer1(AvlTreeLeaf root) {
-        String l = "-", r = "-";
-        String lh = "-", rh = "-";
-        if (root == null) return "[--]";
+         var b = mm.right;
+         var c = b.left;
+         var n = c == null ? null : c.left;
+         var m = c == null ? null : c.right;
+         //   System.out.println("bL   mm="+mm+"  b="+b+"  c="+c+"  n/m="+n+"/"+m);
+         mm.right = n;
+         b.left = m;
+         c.left = mm;
+         c.right = b;
 
+        c.parent = mm.parent;
 
-        if (root.left != null) {
-            l = root.left.getKey();
-            lh = String.valueOf(root.left.getH());
+        mm.parent = c;
+        b.parent = c;
+        if (n != null) n.parent = mm;
+        if (m != null) m.parent = b;
 
+        if (c.parent == null) root = c;
+        else {
+            if (c.parent.left == mm) c.parent.left = c;
+            else if (c.parent.right == mm) c.parent.right = c;
         }
+        return c;
+    }
+
+
+     String viewer1(AvlTreeLeaf root) {
+         String l = "-", r = "-";
+         String lh = "-", rh = "-";
+         if (root == null) return "[--]";
+
+
+         if (root.left != null) {
+             l = root.left.getKey();
+             lh = String.valueOf(root.left.getH());
+
+         }
         if (root.right != null) {
             r = root.right.getKey();
             rh = String.valueOf(root.right.getH());
@@ -420,17 +420,17 @@ public class AvlTree {
         return ("[" + l + "." + lh + " / \\" + r + "." + rh + "]");
     }
 
-    static void viewALL(AvlTreeLeaf root) {
-        if (root == null) {
-            System.out.println(" view NULL");
-            return;
-        }
-        System.out.println("          " + root.getKey() + " h=" + root.getH());
-        System.out.println("        " + viewer1(root));
-        var l = root.left;
-        var r = root.right;
+     void viewALL(AvlTreeLeaf root) {
+         if (root == null) {
+             System.out.println(" view NULL");
+             return;
+         }
+         System.out.println("          " + root.getKey() + " h=" + root.getH());
+         System.out.println("        " + viewer1(root));
+         var l = root.left;
+         var r = root.right;
 
-        System.out.println(" " + viewer1(l) + " " + viewer1(r));
+         System.out.println(" " + viewer1(l) + " " + viewer1(r));
     }
 
 
@@ -447,18 +447,14 @@ public class AvlTree {
 
     public static void main(String[] args) {
         AvlTree test = new AvlTree();
+        ArrayList<AvlTree.AvlTreeLeaf> sorted = new ArrayList<AvlTree.AvlTreeLeaf>();
 
-
-        ArrayList<AvlTreeLeaf> sorted = new ArrayList<AvlTree.AvlTreeLeaf>();
-
-
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000000; i++) {
             test.put("fdf" + (Math.random() * 100000), "*");
 
         }
 
-
-        viewALL(getRoot());
+        test.viewALL(test.getRoot());
 
 
     }
