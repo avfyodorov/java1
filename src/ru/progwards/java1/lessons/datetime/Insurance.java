@@ -8,107 +8,109 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 
-public class Insurance
-{
-  public Insurance(ZonedDateTime start) //- установить дату-время начала действия страховки.
-  {
-    this.start = start;
-  }
+public class Insurance {
+   public Insurance(ZonedDateTime start) //- установить дату-время начала действия страховки.
+   {
+      this.start = start;
+   }
 
-  public Insurance(String strStart, FormatStyle style)
-  // - установить дату-время начала действия страховки
+   public Insurance(String strStart, FormatStyle style)
+   // - установить дату-время начала действия страховки
 //  SHORT соответствует ISO_LOCAL_DATE
 //  LONG  - ISO_LOCAL_DATE_TIME
 //  FULL - ISO_ZONED_DATE_TIME
 //  Для вариантов, когда не задан явно часовой пояс использовать таковой по умолчанию.
-  {
-    this.style = style;
+   {
+      this.style = style;
 
-    if (style == FormatStyle.SHORT)
-    {
-      LocalDate ld = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart));
-      start = ld.atStartOfDay(ZoneId.systemDefault());
-    } else if (style == FormatStyle.LONG)
-    {
-      LocalDateTime localDateTime = LocalDateTime.from(DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(strStart));
-      start = localDateTime.atZone(ZoneId.systemDefault());
-    } else
-      start = ZonedDateTime.from(DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strStart));
+      if (style == FormatStyle.SHORT) {
+         LocalDate ld = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart));
+         start = ld.atStartOfDay(ZoneId.systemDefault());
+      } else if (style == FormatStyle.LONG) {
+         LocalDateTime localDateTime = LocalDateTime.from(DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(strStart));
+         start = localDateTime.atZone(ZoneId.systemDefault());
+      } else
+         start = ZonedDateTime.from(DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strStart));
 
-  }
+   }
 
-  private FormatStyle style;
-  private ZonedDateTime start; // - дата-время начала действия страховки.
-  private Duration duration; // - продолжительность действия.
+   private FormatStyle style;
+   private ZonedDateTime start; // - дата-время начала действия страховки.
+   private Duration duration; // - продолжительность действия.
 
-  public void setDuration(Duration duration)
-  // - установить продолжительность действия страховки.
-  {
-    this.duration = duration;
-  }
+   public void setDuration(Duration duration)
+   // - установить продолжительность действия страховки.
+   {
+      this.duration = duration;
+   }
 
-  public void setDuration(ZonedDateTime expiration)
-  //- установить продолжительность действия страховки, задав дату-время окончания.
-  {
-    setDuration(Duration.between(start, expiration));
-  }
+   public void setDuration(ZonedDateTime expiration)
+   //- установить продолжительность действия страховки, задав дату-время окончания.
+   {
+      setDuration(Duration.between(start, expiration));
+   }
 
-  public void setDuration(int months, int days, int hours)
-  //- установить продолжительность действия страховки,
-  // задав целыми числами количество месяцев, дней и часов.
-  {
-    setDuration(start.plusMonths(months).plusDays(days).plusHours(hours));
-  }
+   public void setDuration(int months, int days, int hours)
+   //- установить продолжительность действия страховки,
+   // задав целыми числами количество месяцев, дней и часов.
+   {
+      setDuration(start.plusMonths(months).plusDays(days).plusHours(hours));
+   }
 
-  public void setDuration(String strDuration, FormatStyle style)
-  //- установить продолжительность действия страховки
-  //SHORT - целое число миллисекунд (тип long)
-  //LONG  - ISO_LOCAL_DATE_TIME - как период, например “0000-06-03T10:00:00” означает,
-  // что продолжительность действия страховки 0 лет, 6 месяцев, 3 дня 10 часов.
-  // FULL - стандартный формат Duration, который получается через toString()
-  {
-    if (style == FormatStyle.SHORT)
-      duration = Duration.ofMillis(Long.parseLong(strDuration));
-    else if (style == FormatStyle.LONG)
-    {
-      LocalDateTime v = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-      ZonedDateTime z = start.plusYears(v.getYear()).
-              plusMonths(v.getMonthValue()).
-              plusDays(v.getDayOfMonth()).
-              plusHours(v.getHour()).
-              plusMinutes(v.getMinute()).
-              plusSeconds(v.getSecond());
-      duration = Duration.between(start, z);
+   public void setDuration(String strDuration, FormatStyle style)
+   //- установить продолжительность действия страховки
+   //SHORT - целое число миллисекунд (тип long)
+   //LONG  - ISO_LOCAL_DATE_TIME - как период, например “0000-06-03T10:00:00” означает,
+   // что продолжительность действия страховки 0 лет, 6 месяцев, 3 дня 10 часов.
+   // FULL - стандартный формат Duration, который получается через toString()
+   {
+      if (style == FormatStyle.SHORT)
+         duration = Duration.ofMillis(Long.parseLong(strDuration));
+      else if (style == FormatStyle.LONG) {
+         LocalDateTime v = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+         ZonedDateTime z = start.plusYears(v.getYear()).
+                 plusMonths(v.getMonthValue()).
+                 plusDays(v.getDayOfMonth()).
+                 plusHours(v.getHour()).
+                 plusMinutes(v.getMinute()).
+                 plusSeconds(v.getSecond());
+         duration = Duration.between(start, z);
 
-    } else
-      duration = Duration.parse(strDuration);
-  }
+      } else
+         duration = Duration.parse(strDuration);
+   }
 
-  public boolean checkValid(ZonedDateTime dateTime)
-  //- проверить действительна ли страховка на указанную дату-время.
-  // Если продолжительность не задана считать страховку бессрочной.
-  {
-    if (start.isAfter(dateTime))
-      return false;
-    if (duration == null)
-      return true;
+   public boolean checkValid(ZonedDateTime dateTime)
+   //- проверить действительна ли страховка на указанную дату-время.
+   // Если продолжительность не задана считать страховку бессрочной.
+   {
+      if (start.isAfter(dateTime))
+         return false;
+      if (duration == null)
+         return true;
 
-    return duration.compareTo(Duration.between(start, dateTime)) > 0 ? true : false;
+      return duration.compareTo(Duration.between(start, dateTime)) > 0 ? true : false;
 
-  }
+   }
 
-  public String toString()
-  //- вернуть строку формата "Insurance issued on " + start + validStr,
-  // где validStr = " is valid", если страховка действительна на данный момент
-  // и " is not valid", если она недействительна.
-  {
-    String valid = checkValid(ZonedDateTime.now()) ? " is valid" : " is not valid";
-    return "Insurance issued on " + start + valid;
-  }
+   public String toString()
+   //- вернуть строку формата "Insurance issued on " + start + validStr,
+   // где validStr = " is valid", если страховка действительна на данный момент
+   // и " is not valid", если она недействительна.
+   {
+      String valid = checkValid(ZonedDateTime.now()) ? " is valid" : " is not valid";
+      return "Insurance issued on " + start + valid;
+   }
 
-//  public static void main(String[] args) throws InterruptedException
-//  {
-//    Insurance insurance = new Insurance("2020-04-03T18:03:30.7495944+03:00[Europe/Moscow]", FormatStyle.FULL);
+   public static void main(String[] args) throws InterruptedException {
+      ZonedDateTime zdf = ZonedDateTime.from(
+              DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2021-03-31T11:54:11.165802+03:00[Europe/Moscow]"));
+      System.out.println(zdf);
+      Insurance in = new Insurance(zdf);
+      in.setDuration(Duration.ofDays(1));
+      System.out.println(in);
+
+      //    Insurance insurance = new Insurance("2020-04-03T18:03:30.7495944+03:00[Europe/Moscow]", FormatStyle.FULL);
 //    insurance.setDuration("1", FormatStyle.SHORT);
 //
 //    System.out.println(insurance);
@@ -133,8 +135,8 @@ public class Insurance
 ////    System.out.println(insurance);
 ////    insurance = new Insurance("2020-03-30T18:03:30.7495944", FormatStyle.LONG);
 ////    System.out.println(insurance);
-////    insurance = new Insurance("2020-03-30", FormatStyle.SHORT);
-////    System.out.println(insurance);
+//    insurance = new Insurance("2020-04-01", FormatStyle.SHORT);
+//    System.out.println(insurance);
 //
 ///*
 //2020-03-30T18:03:30.749594400+03:00[Europe/Moscow]
@@ -153,31 +155,11 @@ public class Insurance
 ////    zdf = ZonedDateTime.from(DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2020-03-30T18:03:30.749594400+03:00[Europe/Moscow]"));
 ////    System.out.println(zdf);
 ////
-//  }
-  public static void main(String[] args) {
-    Instant instant1 = Instant.now();
-    ZonedDateTime zdt1 = instant1.atZone(ZoneId.of("Europe/Moscow"));
-    Instant instant2 = instant1.plusSeconds(180);
-    ZonedDateTime zdt2 = instant2.atZone(ZoneId.of("Europe/Moscow"));
-    System.out.println(zdt1.toString());
-    Insurance test = new Insurance(zdt1);
-    test.setDuration(zdt2);
-    System.out.println( test.getDuration().toMillis());
-    System.out.println(test.checkValid(zdt2));
-    System.out.println(test.toString());
-    System.out.println();
-//    2021-03-29T13:52:14.333695900+03:00[Europe/Moscow]
-//    180000
-//    true
-//    Insurance issued on 2021-03-29T13:52:14.333695900+03:00[Europe/Moscow] is valid
+   }
 
-
-
-  }
    public Duration getDuration() {
       return duration;
    }
 
-  public  enum FormatStyle
-  {SHORT, LONG, FULL} //- стиль формата даты-времени
+   public enum FormatStyle {SHORT, LONG, FULL} //- стиль формата даты-времени
 }

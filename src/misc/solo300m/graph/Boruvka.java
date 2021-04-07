@@ -341,7 +341,7 @@ class Main15{
         graph.addEdge(new Edge<>("FE",graph.getNode('F'),graph.getNode('E'),8));
         graph.addEdge(new Edge<>("EG",graph.getNode('E'),graph.getNode('G'),9));
         graph.addEdge(new Edge<>("EC",graph.getNode('E'),new Node<>('C'),5));
-        graph.addEdge(new Edge<>("BE",graph.getNode('B'),graph.getNode('E'),7));
+        graph.addEdge(new Edge<>("BE",graph.getNode('B'),graph.getNode('E'),9));
         graph.addEdge(new Edge<>("BC",graph.getNode('B'),graph.getNode('C'),8));
         //System.out.println(graph.nodes+"\n"+graph.edges+"\n");
         System.out.println("----------------------------------");

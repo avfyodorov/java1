@@ -34,7 +34,7 @@ public class Binary
 
   public static void main(String[] args)
   {
-    System.out.println(new Binary((byte) 0).toString());
+    System.out.println(new Binary((byte) -81).toString());
     System.out.println(new Binary((byte) 1).toString());
     System.out.println(new Binary((byte) 127).toString());
     System.out.println(new Binary((byte) -40).toString());
