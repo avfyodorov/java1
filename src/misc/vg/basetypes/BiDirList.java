@@ -145,4 +145,14 @@ public class BiDirList<T> implements Iterable<T> {
             System.out.println(a);
         }
     }
+/*
+45 56 5 0
+3й - 5
+всего 4
+-1 105 58 6 16 -89 555 71
+as at au
+as
+at
+au
+ */
 }

@@ -76,6 +76,8 @@ public class Animal implements FoodCompare, CompareWeight
     Animal h1 = new Hamster(0.1);
     System.out.println(h.toStringFull());
 
+    System.out.println("Hamster vs Cow: "+h.compareWeight(c));
+
     Animal d = new Duck(3.2);
     System.out.println(d.toStringFull());
 

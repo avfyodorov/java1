@@ -154,15 +154,16 @@ public class DoubleHashTable<K extends HashValue, V> implements Iterable<V> {
 
     public static void main(String[] args) {
         DoubleHashTable<IntKey, Integer> t = new DoubleHashTable<>();
-        for (int i=0; i<212; i++) {
-            t.add(new IntKey(2*i),i);
+        for (int i=0; i<13; i++) {
+            t.add(new IntKey(i*2),i);
         }
         t.change(new IntKey(0), new IntKey(11));
 
         System.out.println(t.toString());
         for (Integer integer : t) {
-            System.out.println(integer);
+            System.out.print(integer+" ");
         }
+        System.out.println();
 
         DoubleHashTable<StringKey, Integer> t2 = new DoubleHashTable<>();
         for (int i=0; i<105; i++) {

@@ -46,6 +46,18 @@ public class Order
     }
   }
 
+  public void opa(){
+    ArrayList<OrderItem> lst=new ArrayList<>();
+    lst.sort(new Comparator<>()
+    {
+      @Override
+      public int compare(OrderItem o1, OrderItem o2)
+      {
+        return o1.googsName.compareTo(o2.googsName);
+      }
+    });
+
+  }
   //        Игрушка мягкая “Мишка”, 1, 1500
 //        Пазл “Замок в лесу”, 2, 700
 //        Книжка “Сказки Пушкина”, 1, 300

@@ -1,4 +1,4 @@
-package ru.progwards.java2.lessons.graph;
+package misc.dansprat.graph;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -123,7 +123,7 @@ public class Dijkstra {
         Dijkstra DJ = new Dijkstra(nodes);
         int paths[][] = DJ.find(1);
         printArr(paths);
-        paths = DJ.find(2);
+        paths = DJ.find(6);
         System.out.println("==============================");
         printArr(paths);
 

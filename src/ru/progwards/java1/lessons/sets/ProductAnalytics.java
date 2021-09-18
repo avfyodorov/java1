@@ -55,6 +55,10 @@ public class ProductAnalytics {
       this.shops = shops;
    }
 
+   /**
+    *
+    * @return
+    */
    public Set<Product> existInAll()
 //- товары из products,  которые имеются во всех магазинах
    {
@@ -142,6 +146,11 @@ public class ProductAnalytics {
       System.out.println("existinone : " + mainobj.existAtListInOne());
       System.out.println("not exist  : " + mainobj.notExistInShops());
       System.out.println("exist only : " + mainobj.existOnlyInOne());
+
+      System.out.println("=================");
+      Set<Product> res = new HashSet<>(mainobj.products);
+      res.retainAll(shop1.getProducts());
+      System.out.println(res);
 
    }
 }

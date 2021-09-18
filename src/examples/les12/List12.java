@@ -18,12 +18,12 @@ public class List12
 //суммирует значения всех элементов списка
     int sum = 0;
     for (Integer item : list)
-      sum = sum + item.intValue();
+      sum = sum + item;
     sum = sum / 100;
 
 //удаляет из списка элементы, значение которых меньше суммы, деленной на 100 (целочисленное деление)
     for (int i = list.size() - 1; i >= 0; i--)
-      if (list.get(i).intValue() >= sum)
+      if (list.get(i) >= sum)
         list.remove(i);
 
     return list;

@@ -33,7 +33,32 @@ public class Insurance {
          start = ZonedDateTime.from(DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strStart));
 
    }
-
+   /*
+   public Insurance(String strStart, FormatStyle style) {
+      System.out.println("вызов конструктора Insurance; strStart = " + strStart + "FormatStyle = " + style.toString());
+//        установить дату-время начала действия страховки
+//        SHORT соответствует ISO_LOCAL_DATE
+//        LONG  - ISO_LOCAL_DATE_TIME
+//        FULL - ISO_ZONED_DATE_TIME
+//        Для вариантов, когда не задан явно часовой пояс использовать таковой по умолчанию.
+      DateTimeFormatter dtf;
+      switch (style) {
+         case FULL:
+            dtf = DateTimeFormatter.ISO_ZONED_DATE_TIME;
+            break;
+         case LONG:
+            dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+            break;
+         case SHORT:
+            dtf = DateTimeFormatter.ISO_LOCAL_DATE;
+            break;
+         default:
+            dtf = DateTimeFormatter.BASIC_ISO_DATE;
+      }
+      start = ZonedDateTime.parse(strStart, dtf); // Вот здесь получаю ошибку. Хотя в режиме отладки видно,
+      // что dtf задан верно, да и strStart соответствует шаблону "SHORT"
+   }
+*/
    private FormatStyle style;
    private ZonedDateTime start; // - дата-время начала действия страховки.
    private Duration duration; // - продолжительность действия.

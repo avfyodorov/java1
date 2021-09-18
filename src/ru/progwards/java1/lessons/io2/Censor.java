@@ -22,7 +22,7 @@ import java.io.RandomAccessFile;
 import java.util.Scanner;
 
 public class Censor {
-   public static class CensorException extends Exception {
+   public static class CensorException extends RuntimeException {
       public CensorException(String message, String filename) {
          super(message);
          this.message = message;
@@ -47,7 +47,7 @@ public class Censor {
          f.readFully(b);
          String res = new String(b);
 
-//подготовить звёздочки искать сq   лово в строке
+//подготовить звёздочки искать слово в строке
          for (String str : obscene) {
             res = res.replaceAll(str, "*".repeat(str.length()));
          }
@@ -58,7 +58,7 @@ public class Censor {
          f.write(res.getBytes());
          f.setLength(f.getFilePointer()); //режем хвост
 
-      } catch (Exception e) {
+      } catch (IOException e) {
          throw new CensorException(e.getMessage(), inoutFileName);
       }
    }
@@ -94,7 +94,7 @@ public class Censor {
       }
    }
 
-   //  Буря мглою небо кроет,
+//  Буря мглою небо кроет,
 //  Вихри снежные крутя;
 //  То как зверь она завоет,
 //  То заплачет как дитя.

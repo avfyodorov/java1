@@ -49,9 +49,15 @@ public class Summator{
         return result;
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        BigInteger number = BigInteger.valueOf(14);
-        Summator summator = new Summator(3);
-        System.out.println(summator.sum(number));
+    public static void main(String[] args) {
+        misc.shurupinh.threads.Summator test = new misc.shurupinh.threads.Summator(100000);
+
+        System.out.println("result = " + test.sum(new BigInteger("1356543")));
     }
+
+//    public static void main(String[] args) throws InterruptedException {
+//        BigInteger number = BigInteger.valueOf(14);
+//        Summator summator = new Summator(3);
+//        System.out.println(summator.sum(number));
+//    }
 }

@@ -16,6 +16,7 @@ public class Iterator12_1
       Integer n = iterator.next();
       if (n % 3 == 0)
         iterator.set(iterator.nextIndex() - 1);
+
     }
 
   }
