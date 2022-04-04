@@ -9,6 +9,8 @@ public class FileTest
 {
   public static void main(String[] args) throws IOException
   {
+    int i='a';
+    System.out.println(i);
     FileWriter f = new FileWriter("qyqy.txt");
     f.write("1\n");
     f.write("2\n");

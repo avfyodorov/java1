@@ -1,0 +1,16 @@
+package misc.massimilian.reflection;
+
+public class Person {
+	private String name;
+	private int age;
+	private String country;
+
+	 Person() {}
+	 Person(String arg0, int arg1) {}
+
+	public String getName() {}
+	public static void main(String[] arg0) {}
+	public String toString() {}
+	public String getCountry() {}
+	public int getAge() {}
+}

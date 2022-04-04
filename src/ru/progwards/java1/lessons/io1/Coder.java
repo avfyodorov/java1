@@ -34,8 +34,7 @@ public class Coder
   }
 
   public static void codeFile(String inFileName, String outFileName,
-                              char[] code, String logName)
-  {
+                              char[] code, String logName) throws IOException {
     try
     {
       FileInputStream reader = new FileInputStream(inFileName);
@@ -59,10 +58,10 @@ public class Coder
     {
       toLog(logName, e.getMessage());
     }
+
   }
 
-  public static void main(String[] args)
-  {
+  public static void main(String[] args) throws IOException {
 //=====
     char[] code = new char[256];
     Arrays.fill(code, '*');

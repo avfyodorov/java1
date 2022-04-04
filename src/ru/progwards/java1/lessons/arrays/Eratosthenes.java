@@ -46,7 +46,16 @@ public class Eratosthenes
      }
     }
   }
-
+  private void sift2() {
+    sieve[0] = sieve[1] = false;
+    for (int i = 2; i <= (int) Math.sqrt(sieve.length); i++) {
+      if (sieve[i]) {
+        for (int j = i * i; j < sieve.length; j += i) {
+          sieve[j] = false;
+        }
+      }
+    }
+  }
   public boolean isSimple(int n)
   {
     return n >= 0 && n < sieve.length ? sieve[n] : false;

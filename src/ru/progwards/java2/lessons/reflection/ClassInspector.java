@@ -27,7 +27,7 @@ public class ClassInspector {
             Constructor[] constructors = thisClass.getDeclaredConstructors();
             Method[] methods = thisClass.getDeclaredMethods();
 
-            try (FileWriter writer = new FileWriter(className + ".java")) {
+            try (FileWriter writer = new FileWriter("src\\reflectiontest\\"+className + "_vg.java")) {
                 writer.write(thisClass.toGenericString() + " {" + System.lineSeparator());
 
                 for (Field f : fields) {
@@ -64,6 +64,8 @@ public class ClassInspector {
     }
 
     public static void main(String[] args) {
-        inspect("java.lang.String");
+//        inspect("java.lang.String");
+        inspect("Person");
+        inspect("Tester");
     }
 }

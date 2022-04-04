@@ -10,6 +10,8 @@ public class Astronomy
     System.out.println("jupiterSquare()== " + jupiterSquare());
     System.out.println("earthVsMercury()== " + earthVsMercury());
     System.out.println("earthVsJupiter()== " + earthVsJupiter());
+
+    int i = Integer.parseInt("12");
   }
 
   static final Double PI = 3.14;

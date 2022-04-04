@@ -1,0 +1,55 @@
+package ru.progwards.java2.lessons.reflection;
+
+public abstract class Tester{
+
+   public static String tester;
+
+   @NotNull
+   @Future
+   private int intTest;
+
+   protected double doubleTest;
+
+   private final Tester TEST_TESTER;
+
+   private Object[] objects;
+
+   String string;
+
+
+   public Tester(int arg0, double arg1);
+
+   public Tester(int arg0);
+
+
+   public String getString();
+
+   public static String getInfornation();
+
+   @Past
+   public void testMethodOne(int arg0, String arg1);
+
+   @Deprecated
+   public void setObjects(Character[] arg0);
+
+   public int testMethodTwo(Object[] arg0);
+
+   private int getIntTest();
+
+   public void setDoubleTest(double arg0);
+
+   public double getDoubleTest();
+
+   public String testMethodThree(String[] arg0);
+
+   public Character[] getObjects();
+
+   public void setIntTest(int arg0);
+
+   public void setString(String arg0);
+
+   public Tester getTEST_TESTER();
+
+   public long[] testMethodFour();
+
+}

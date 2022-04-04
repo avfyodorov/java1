@@ -15,5 +15,11 @@ public class XXX {
       byte value = (byte)0b11111111;
       int result = sumBits(value);
       System.out.println(result);
+
+
+      double d=0.00;
+      for (int i=0; i<10;i++)
+         d=d+0.1;
+      System.out.println(d);
    }
 }

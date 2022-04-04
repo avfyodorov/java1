@@ -11,7 +11,7 @@ package examples;
 
 public         class Test{
 public static void main(String[] args) {
-        A ab = new B(); //Восходящее преобразование
-        System.out.println("Int x = " + ab.x);
+//        A4 ab = new B4(); //Восходящее преобразование
+//        System.out.println("Int x = " + ab.x);
         }
         }

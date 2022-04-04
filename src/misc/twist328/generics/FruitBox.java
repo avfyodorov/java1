@@ -59,7 +59,7 @@ public class FruitBox {
     // пересыпать фрукты из текущей коробки в другую, переданную в качестве параметра.
     public void moveTo(FruitBox box) {
         if (fruitList.size() == 0) return;
-        if (box.fruitList.size() > 0) {
+        if (!box.fruitList.isEmpty()) {
 
             String getToBox = box.fruitList.get(0).getClass().getName();// проверим сорт
             System.out.println("getToBox3=" + getToBox);

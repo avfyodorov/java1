@@ -102,11 +102,9 @@ public class ArrayInteger
     }
 
     byte o = 0;
-    for (int i = 0; i < digits.length; i++)
-    {
+    for (int i = 0; i < digits.length; i++) {
       digits[i] = (byte) (digits[i] + num.getDigit(i) + o);
-      if (digits[i] > 9)
-      {
+      if (digits[i] > 9)      {
         digits[i] = (byte) (digits[i] - 10);
         o = 1;
       } else

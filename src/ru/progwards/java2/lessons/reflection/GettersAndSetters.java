@@ -38,7 +38,7 @@ public class GettersAndSetters {
                 }
             }
         }
-        return false;
+        return  false;
     }
 
     public static void check(String clazz) {
@@ -77,6 +77,6 @@ public class GettersAndSetters {
     }
 
     public static void main(String[] args) {
-        check("ru.progwards.java2.lessons.reflection.Person");
+        check("reflectiontest.Person");
     }
 }

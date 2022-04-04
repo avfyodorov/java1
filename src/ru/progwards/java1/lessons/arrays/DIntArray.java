@@ -104,8 +104,8 @@ public class DIntArray
     d.atInsert(2,19);
     System.out.println("inserted:  " + Arrays.toString(d.a));
 
-    d.atDelete(2);
-    System.out.println("deleted:  " + Arrays.toString(d.a));
-
+//    d.atDelete(2);
+//    System.out.println("deleted:  " + Arrays.toString(d.a));
+//
   }
 }

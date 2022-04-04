@@ -65,12 +65,16 @@ public class Summator {
         }
         System.out.println("long   = " + l);
 
+        long time = System.currentTimeMillis();
         int tr = 100_000;
         Summator test = new Summator(tr);
         System.out.println("result = " + test.sum(BigInteger.valueOf(num)) + "   потоков - " + tr);
+        System.out.println("Время работы: " + (System.currentTimeMillis() - time) + " мс.");
 
+        time = System.currentTimeMillis();
         tr = 2;
         test = new Summator(tr);
         System.out.println("result = " + test.sum(BigInteger.valueOf(num)) + "   потоков - " + tr);
+        System.out.println("Время работы: " + (System.currentTimeMillis() - time) + " мс.");
     }
 }

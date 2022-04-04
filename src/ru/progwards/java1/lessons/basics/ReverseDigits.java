@@ -15,4 +15,5 @@ public class ReverseDigits {
 //всё складываем в обратном порядке
       return n3 * 100 + n2 * 10 + n1;
    }
+
 }

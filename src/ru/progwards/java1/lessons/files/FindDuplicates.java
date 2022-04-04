@@ -80,7 +80,7 @@ public class FindDuplicates
   public static void main(String[] args) //throws IOException
   {
     FindDuplicates fd = new FindDuplicates();
-    List<List<String>> dup = fd.findDuplicates("c:/lib/java/ttt");
+    List<List<String>> dup = fd.findDuplicates("./resources/test_dir");
     fd.print(dup);
   }
 
