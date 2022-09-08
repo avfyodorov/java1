@@ -33,7 +33,7 @@ public class CyclesGoldenFibo {
          for (int j = 1; j <= 100; j++)
             if (isGoldenTriangle(j, j, i))
                System.out.println("основание - " + i + "   рёбра - " + j);
-
+/*
       int j = 6;
       int fiboPrev = 5;
       while (true) {
@@ -48,6 +48,7 @@ public class CyclesGoldenFibo {
          fiboPrev = a;
          j++;
       }
+  */
    }
 
    /*
@@ -90,9 +91,9 @@ public class CyclesGoldenFibo {
       return
               TriangleInfo.isIsoscelesTriangle(a, b, c) &&
                       (
-                              ((a == b) && (V1 <= ac) && (V2 >= ac)) ||
-                                      ((a == c) && (V1 <= ab) && (V2 >= ab)) ||
-                                      ((c == b) && (V1 <= ba) && (V2 >= ba))
+                              ((a == b) && (V1 <= ac) && (V2 >= ac))
+                        ||    ((a == c) && (V1 <= ab) && (V2 >= ab))
+                        ||    ((c == b) && (V1 <= ba) && (V2 >= ba))
                       );
    }
 

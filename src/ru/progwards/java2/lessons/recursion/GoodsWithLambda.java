@@ -79,8 +79,8 @@ public class GoodsWithLambda
   //- вернуть список, отсортированный по первым 3-м символам артикула, без учета регистра
   {
     return list.stream()
-               .sorted(Comparator.comparing(x -> x.number.substring(0, 3)
-                                                         .toUpperCase()))
+               .sorted(Comparator
+                       .comparing(x -> x.number.substring(0, 3).toUpperCase()))
                .collect(Collectors.toList());
   }
 

@@ -17,80 +17,77 @@ package ru.progwards.java1.lessons.bigints;
 //        т.д.
 //
 
-public abstract class AbsInteger
-{
-  public abstract int getValue();
+public abstract class AbsInteger {
+    public abstract int getValue();
 
-  static AbsInteger add(AbsInteger num1, AbsInteger num2)
-  {
-    int res = num1.getValue() + num2.getValue();
+    static AbsInteger add(AbsInteger num1, AbsInteger num2) {
+        int res = num1.getValue() + num2.getValue();
 
-    if (res >= Byte.MIN_VALUE && res <= Byte.MAX_VALUE)
-      return new ByteInteger((byte) res);
-    else if (res >= Short.MIN_VALUE && res <= Short.MAX_VALUE)
-      return new ShortInteger((short) res);
-   else
-     return new IntInteger(res);
+        if (res >= Byte.MIN_VALUE && res <= Byte.MAX_VALUE)
+            return new ByteInteger((byte) res);
+        else if (res >= Short.MIN_VALUE && res <= Short.MAX_VALUE)
+            return new ShortInteger((short) res);
+        else
+            return new IntInteger(res);
 
-  }
+    }
 
-  public static void main(String[] args)
-  {
-    ByteInteger b = new ByteInteger((byte) 123);
-    System.out.println(b.toString());
-    System.out.println(add(new IntInteger(12345),new ByteInteger((byte) 8)));
-  }
+    public static void main(String[] args) {
+        ByteInteger b = new ByteInteger((byte) 123);
+        System.out.println(b.toString());
+        System.out.println(add(new IntInteger(12345), new ByteInteger((byte) 8)));
+    }
 }
 
-class ByteInteger extends AbsInteger
-{
-  private byte val;
-  public  int getValue(){return val;}
+class ByteInteger extends AbsInteger {
+    private byte val;
 
-  public ByteInteger(byte val)
-  {
-    this.val = val;
-  }
+    public int getValue() {
+        return val;
+    }
 
-  @Override
-  public String toString()
-  {
-    return String.valueOf(val);
-  }
+    public ByteInteger(byte val) {
+        this.val = val;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(val);
+    }
 }
 
-class ShortInteger extends AbsInteger
-{
-  private short val;
-  public  int getValue(){return val;}
+class ShortInteger extends AbsInteger {
+    private short val;
 
-  public ShortInteger(short val)
-  {
-    this.val = val;
-  }
+    public int getValue() {
+        return val;
+    }
 
-  @Override
-  public String toString()
-  {
-    return String.valueOf(val);
-  }
+    public ShortInteger(short val) {
+        this.val = val;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(val);
+    }
 }
 
-class IntInteger extends AbsInteger
-{
-  private int val;
-  public  int getValue(){return val;}
+class IntInteger extends AbsInteger {
+    private int val;
 
-  public IntInteger(int val)
-  {
-    this.val = val;
-  }
+    public int getValue() {
+        return val;
+    }
 
-  @Override
-  public String toString()
-  {
-    return String.valueOf(val);
-  }
+    public IntInteger(int val) {
+        this.val = val;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(val);
+    }
 }
 
 

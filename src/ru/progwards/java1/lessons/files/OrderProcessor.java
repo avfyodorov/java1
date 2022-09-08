@@ -29,8 +29,9 @@ import java.util.*;
 
 public class OrderProcessor
 {
-  String startPath;
-  List<Order> orderList = new ArrayList<>();
+  private String startPath;
+  private List<Order> orderList = new ArrayList<>();
+  private int errors;
 
   private void printOrders(List<Order> list)
   {
@@ -45,8 +46,6 @@ public class OrderProcessor
   {
     this.startPath = startPath;
   }
-
-  int errors;
 
   public int loadOrders(LocalDate start, LocalDate finish, String shopId) //throws IOException
   //- загружает заказы за указанный диапазон дат, с start до finish, обе даты включительно.
@@ -72,7 +71,7 @@ public class OrderProcessor
 //отбор по имени
             if (pathMatcher.matches(file))
             {
-//            System.out.println(file);
+//            System.out.println("qyqy^ "+file);
 //индекс магаза, допустимое время... загрузить и добавить
               Order order = Order.loadOrder(file, start, finish, shopId);
               if (order != null)
@@ -172,10 +171,11 @@ public class OrderProcessor
 
   public static void main(String[] args) throws IOException
   {
-    OrderProcessor op = new OrderProcessor("c:/lib/java/yyy");
+    OrderProcessor op = new OrderProcessor("resources\\orders\\");
 
     LocalDate finish = LocalDate.of(2020, 5, 15);
-    System.out.println("errors: " + op.loadOrders(null, finish, null));
+//    System.out.println("errors: " + op.loadOrders(null, finish, null));
+    System.out.println("errors: " + op.loadOrders(null, null, null));
     op.printOrders(op.orderList);
 
     System.out.println("----------------");

@@ -46,6 +46,18 @@ public class Eratosthenes
      }
     }
   }
+  private void sift3() {
+    sieve[0] = false;
+    sieve[1] = false;
+    for (int i = 2; i < sieve.length; i++) {
+      sieve[i] = true;
+      if (sieve[i]) {
+        for (int j = 2; i * j < sieve.length; j++) {
+          sieve[i * j] = false;
+        }
+      }
+    }
+  }
   private void sift2() {
     sieve[0] = sieve[1] = false;
     for (int i = 2; i <= (int) Math.sqrt(sieve.length); i++) {

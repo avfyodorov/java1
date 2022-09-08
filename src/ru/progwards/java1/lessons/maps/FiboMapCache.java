@@ -34,98 +34,86 @@ import java.util.TreeMap;
 //        во времени с on = true и on = false, результат вывести на экран в
 //        формате "fiboNumber cacheOn=??? время выполнения ???" для cacheOn=true и cacheOn=false,
 //        вместо ??? вывести реальные значения в мсек.
-public class FiboMapCache
-{
-  private Map<Integer, BigDecimal> fiboCache = new TreeMap<>();
-  private boolean cacheOn;
+public class FiboMapCache {
+    private Map<Integer, BigDecimal> fiboCache = new TreeMap<>();
+    private boolean cacheOn;
 
-  public FiboMapCache(boolean cacheOn)
-  {
-    this.cacheOn = cacheOn;
-    if (cacheOn)
-    {
-      fiboCache.put(1, BigDecimal.ONE);
-      fiboCache.put(2, BigDecimal.ONE);
+    public FiboMapCache(boolean cacheOn) {
+        this.cacheOn = cacheOn;
+        if (cacheOn) {
+            fiboCache.put(1, BigDecimal.ONE);
+            fiboCache.put(2, BigDecimal.ONE);
+        }
     }
-  }
 
-  // сумме двух предыдущих чисел. Первые 2 числа последовательности 1, 1.
+    // сумме двух предыдущих чисел. Первые 2 числа последовательности 1, 1.
 // Итого получаем 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144 и т.д.
-  public BigDecimal fiboNumber(int n)
-  {
-    if (n < 3) return BigDecimal.ONE;
+    public BigDecimal fiboNumber(int n) {
+        if (n < 3) return BigDecimal.ONE;
 
-    BigDecimal a, b, c;
-    int start;
+        BigDecimal a, b, c;
+        int start;
 
 //если включено - взять ближайшее рассчитанное число
-    if (cacheOn)
-    {
-      start = (int) ((TreeMap) fiboCache).floorKey(n) + 1;
-      a = fiboCache.get(start - 2);
-      b = fiboCache.get(start - 1);
-    } else
-    {
-      start = 3;
-      a = BigDecimal.ONE;
-      b = BigDecimal.ONE;
-    }
+        if (cacheOn) {
+            start = (int) ((TreeMap) fiboCache).floorKey(n) + 1;
+            a = fiboCache.get(start - 2);
+            b = fiboCache.get(start - 1);
+        } else {
+            start = 3;
+            a = BigDecimal.ONE;
+            b = BigDecimal.ONE;
+        }
 
 // Итого получаем 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144 и т.д.
-    for (int i = start; i <= n; i++)
-    {
+        for (int i = start; i <= n; i++) {
 //calc next fibo number
-      c = b.add(a);
-      a = b;
-      b = c;
+            c = b.add(a);
+            a = b;
+            b = c;
 
-      if (cacheOn)
-        fiboCache.put(i, b);
+            if (cacheOn)
+                fiboCache.put(i, b);
+
+        }
+
+        return b;
 
     }
 
-    return b;
+    static final int N_SIZE = 1000;
 
-  }
-
-  static final int N_SIZE = 1000;
-
-  //        во времени с on = true и on = false, результат вывести на экран в
+    //        во времени с on = true и on = false, результат вывести на экран в
 //        формате "fiboNumber cacheOn=??? время выполнения ???" для cacheOn=true и cacheOn=false,
 //        вместо ??? вывести реальные значения в мсек.
-  public static void test()
-  {
-    FiboMapCache fiboMapCache = new FiboMapCache(true);
-    long start = new Date().getTime();
+    public static void test() {
+        FiboMapCache fiboMapCache = new FiboMapCache(true);
+        long start = new Date().getTime();
 
-    for (int i = 1; i <= N_SIZE; i++)
-    {
-      fiboMapCache.fiboNumber(i);
+        for (int i = 1; i <= N_SIZE; i++) {
+            fiboMapCache.fiboNumber(i);
+        }
+        System.out.println("fiboNumber cacheOn=" + fiboMapCache.cacheOn +
+                " время выполнения " + (int) (new Date().getTime() - start));
+
+        fiboMapCache = new FiboMapCache(false);
+        start = new Date().getTime();
+
+        for (int i = 1; i <= N_SIZE; i++) {
+            fiboMapCache.fiboNumber(i);
+        }
+        System.out.println("fiboNumber cacheOn=" + fiboMapCache.cacheOn +
+                " время выполнения " + (int) (new Date().getTime() - start));
+
     }
-    System.out.println("fiboNumber cacheOn=" + fiboMapCache.cacheOn +
-            " время выполнения " + (int) (new Date().getTime() - start));
 
-    fiboMapCache = new FiboMapCache(false);
-    start = new Date().getTime();
-
-    for (int i = 1; i <= N_SIZE; i++)
-    {
-      fiboMapCache.fiboNumber(i);
+    public void clearCahe() {
+        fiboCache = null;
+        cacheOn = false;
     }
-    System.out.println("fiboNumber cacheOn=" + fiboMapCache.cacheOn +
-            " время выполнения " + (int) (new Date().getTime() - start));
 
-  }
-
-  public void clearCahe()
-  {
-    fiboCache = null;
-    cacheOn=false;
-  }
-
-  public static void main(String[] args)
-  {
-    test();
-  }
+    public static void main(String[] args) {
+        test();
+    }
 
 }

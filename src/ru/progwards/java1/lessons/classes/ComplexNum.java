@@ -1,6 +1,26 @@
 package ru.progwards.java1.lessons.classes;
 
+import java.util.Scanner;
+
 public class ComplexNum {
+   public static void cycle(int number) {
+      int i = number;
+      while  (i != 1) {
+         if (i % 2 == 0) {
+            i = i / 2;
+
+         }
+         else {
+            i = ((i * 3 )+ 1) / 2;
+         }
+         System.out.print("| " +i +" |   ");
+      }
+   }
+
+   public static void main(String[] args) {
+      cycle(22);
+   }
+   /*
    public static void main(String[] args) {
       ComplexNum x = new ComplexNum(2, 3);
       ComplexNum y = new ComplexNum(-1, 2);
@@ -11,8 +31,9 @@ public class ComplexNum {
       System.out.println("mul : " + x.mul(y));
       System.out.println("div : " + x.div(y));
 
-   }
 
+   }
+*/
    public ComplexNum add(ComplexNum num)
    //сложение комплексных чисел по формуле:
    //(a + bi) + (c + di) = (a + c) + (b + d)i
@@ -50,14 +71,6 @@ public class ComplexNum {
 
    }
 
-   public int getA() {
-      return a;
-   }
-
-   public int getB() {
-      return b;
-   }
-
    private int a;
    private int b;
 
@@ -65,6 +78,13 @@ public class ComplexNum {
       this.a = a;
       this.b = b;
    }
+   public int getA() {
+      return a;
+   }
+   public int getB() {
+      return b;
+   }
+
 
    public String toString()
    //приведение к строке, выдать в формате a+bi,
