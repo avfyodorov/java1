@@ -76,6 +76,25 @@ public class CyclesGoldenFibo {
       return f2;
    }
 
+   public static int fiboNumber7(int n) {
+      int a = 1;
+      int b = 1;
+
+      for (int i = 1; i <= n; i++) {
+         if (n <= 2) {
+            return b;
+         }
+         if (i > 2)
+            a = a + b;
+         b = a - b;
+
+      }
+      return a;
+   }
+//   public static void main(String[] args) {
+//      System.out.println(fiboNumber(10));
+//   }
+
    static final double V1 = 1.61703;
    static final double V2 = 1.61903;
 

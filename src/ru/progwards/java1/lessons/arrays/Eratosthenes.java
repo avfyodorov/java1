@@ -20,64 +20,59 @@ package ru.progwards.java1.lessons.arrays;
 
 import java.util.Arrays;
 
-public class Eratosthenes
-{
-  private boolean[] sieve;
+public class Eratosthenes {
+    private boolean[] sieve;
 
-  public Eratosthenes(int N)
-  {
-    sieve = new boolean[N];
-    Arrays.fill(sieve, true);
-    sift();
-  }
+    public Eratosthenes(int N) {
+        sieve = new boolean[N];
+        Arrays.fill(sieve, true);
+        sift();
+    }
 
-  private void sift()
-  {
-    sieve[0] = false;
-    sieve[1] = false;
-    for (int i = 2; i < sieve.length; ++i)
-    {
-      if (sieve[i])
-      {
-        for (int j = 2; i * j < sieve.length; ++j)
-        {
-          sieve[i * j] = false;
+    private void sift() {
+        sieve[0] = false;
+        sieve[1] = false;
+        for (int i = 2; i < sieve.length; ++i) {
+            if (sieve[i]) {
+                for (int j = 2; i * j < sieve.length; ++j) {
+                    sieve[i * j] = false;
+                }
+            }
         }
-     }
     }
-  }
-  private void sift3() {
-    sieve[0] = false;
-    sieve[1] = false;
-    for (int i = 2; i < sieve.length; i++) {
-      sieve[i] = true;
-      if (sieve[i]) {
-        for (int j = 2; i * j < sieve.length; j++) {
-          sieve[i * j] = false;
-        }
-      }
-    }
-  }
-  private void sift2() {
-    sieve[0] = sieve[1] = false;
-    for (int i = 2; i <= (int) Math.sqrt(sieve.length); i++) {
-      if (sieve[i]) {
-        for (int j = i * i; j < sieve.length; j += i) {
-          sieve[j] = false;
-        }
-      }
-    }
-  }
-  public boolean isSimple(int n)
-  {
-    return n >= 0 && n < sieve.length ? sieve[n] : false;
-  }
 
-  public static void main(String[] args)
-  {
-    Eratosthenes era=new Eratosthenes(16);
-    for (int i=0; i<era.sieve.length; i++)
-      System.out.println(""+i+" : "+era.isSimple(i));
-    System.out.println(Arrays.toString(era.sieve));
-  }
+    private void sift3() {
+        sieve[0] = false;
+        sieve[1] = false;
+        for (int i = 2; i < sieve.length; i++) {
+            sieve[i] = true;
+            if (sieve[i]) {
+                for (int j = 2; i * j < sieve.length; j++) {
+                    sieve[i * j] = false;
+                }
+            }
+        }
+    }
+
+    private void sift2() {
+        sieve[0] = sieve[1] = false;
+        for (int i = 2; i <= (int) Math.sqrt(sieve.length); i++) {
+            if (sieve[i]) {
+                for (int j = i * i; j < sieve.length; j += i) {
+                    sieve[j] = false;
+                }
+            }
+        }
+    }
+
+    public boolean isSimple(int n) {
+        return n >= 0 && n < sieve.length ? sieve[n] : false;
+    }
+
+    public static void main(String[] args) {
+        Eratosthenes era = new Eratosthenes(16);
+        for (int i = 0; i < era.sieve.length; i++)
+            System.out.println("" + i + " : " + era.isSimple(i));
+        System.out.println(Arrays.toString(era.sieve));
+    }
 }
