@@ -26,7 +26,7 @@ public class FloatNumber {
         String temp = String.format("%1E", d).replace(',', '.');
 
         //знак.
-        sign = temp.charAt(0) == '-' ? false : true;
+        sign = temp.charAt(0) != '-';
         //убрать минус из строки
         if (!sign)
             temp = temp.replace('-', ' ').trim();

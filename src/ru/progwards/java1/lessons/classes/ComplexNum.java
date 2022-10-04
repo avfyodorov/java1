@@ -55,6 +55,7 @@ public class ComplexNum {
       return new ComplexNum(a * num.getA() - b * num.getB(), a * num.getB() + b * num.getA());
    }
 
+
    public ComplexNum div(ComplexNum num)
    //деление комплексных чисел по формуле:
    //(a + bi) / (c + di) = (a*c + b*d)/(c*c+d*d) + ((b*c - a*d)/(c*c+d*d))i
