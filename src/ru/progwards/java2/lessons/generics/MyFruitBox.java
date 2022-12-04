@@ -80,6 +80,7 @@ public class MyFruitBox<T extends MyFruit> extends ArrayList<T> {
             System.out.println(e.getMessage());
         }
         System.out.println("Итого. Oткуда:" + fbAppleTest.size() + " Куда: " + fbOrange.size());
+
     }
 }
 
@@ -103,3 +104,4 @@ class MyApple extends MyFruit {
         return 3.62;
     }
 }
+
