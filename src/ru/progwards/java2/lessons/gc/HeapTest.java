@@ -4,7 +4,7 @@ package ru.progwards.java2.lessons.gc;
 
 //import ru.progwards.java2.lessons.gc.OutOfMemoryException;
 
-import java.util.ArrayDeque;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 // пустой класс ничего не делает
 //  malloc time: 40 free time: 0
@@ -96,5 +96,6 @@ public class HeapTest {
       long stop = System.currentTimeMillis();
       System.out.println("malloc time: " + allocTime + " free time: " + freeTime);
       System.out.println("total time: " + (stop - start) + " count: " + count);
+
    }
 }
