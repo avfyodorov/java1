@@ -22,28 +22,23 @@ public class FloatNumber {
     */
     public FloatNumber(String number) {
         //Привести число к нужному формату.
-        double d = Double.parseDouble(number);
-        String temp = String.format("%1E", d).replace(',', '.');
-
-        //знак.
-        sign = temp.charAt(0) != '-';
-        //убрать минус из строки
-        if (!sign)
-            temp = temp.replace('-', ' ').trim();
+        String temp = String.format("%1E", Double.valueOf(number)).replace(',', '.');
 
         // разделить на 2 строки: мантисса и степень.
         String[] s = temp.split("E");
-        exp = Integer.parseInt(s[1]);
 
-        //Если первая цифра в мантиcce не 0, сдвинуть вправо, убрать точку, увеличить степень.
-        if (s[0].charAt(0) != '0') {
-            s[0] = s[0].substring(0, 1) + s[0].substring(2);
-            exp++;
-        } else
-            s[0] = s[0].substring(2);
-
+        int point = s[0].indexOf('.');
+        if (point > -1)
+            s[0] = s[0].substring(0, point) + s[0].substring(point + 1);
         mantissa = Long.parseLong(s[0]);
-
+//Мантисса всегда положительная
+        if (mantissa < 0) {
+            sign = false;
+            mantissa = -mantissa;
+        } else
+            sign = true;
+//степень
+        exp = Integer.parseInt(s[1]);
     }
 
     /*
@@ -58,11 +53,16 @@ public class FloatNumber {
     */
     @Override
     public String toString() {
-        String res = sign ? "0." : "-0.";
-        res = res + Long.toString(mantissa);
-        if (exp > 0)
-            res = res + "E" + Integer.toString(exp);
-
+//Принудительно вставить точку после первой цифры.
+        String res = String.valueOf(mantissa);
+        if (mantissa > 0)
+            res = res.charAt(0) + "." + res.substring(1);
+//Добавить степень
+        if (exp != 0)
+            res = res + "E" + exp;
+//знак
+        if (!sign)
+            res = "-" + res;
         return res;
     }
 
@@ -93,6 +93,7 @@ public class FloatNumber {
     }
 
     public static void main(String[] args) {
+
         System.out.println(new FloatNumber("-0.45456e7"));
         System.out.println(new FloatNumber("-123.45456e7"));
         System.out.println(new FloatNumber("-12e7"));
@@ -101,6 +102,8 @@ public class FloatNumber {
         System.out.println(new FloatNumber(" 0"));
 
         System.out.println(new FloatNumber("8.5").sub(new FloatNumber("1.2")));
+        System.out.println(new FloatNumber("93810e2").add(new FloatNumber("85699e3")));
 
+//        System.out.println(new FloatNumber(true,645630,8));
     }
 }

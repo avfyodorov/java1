@@ -2,6 +2,8 @@ package ru.progwards.java1.lessons.params;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Автор: Фёдоров Александр
@@ -55,22 +57,46 @@ public class ArrayInteger {
         }
     }
 
+    boolean add2(ArrayInteger num) {
+        boolean ok = true;
+        String out1 = "", out2 = "", outSum = "";
+        int sum;
 
+        for (int i = 0; i <= num.digits.length - 1; i++) {
+            out1 = out1 + Byte.toString((byte) (num.digits[i]));
+        }
+
+        for (int j = 0; j < digits.length; j++) {
+            out2 = out2 + Byte.toString((byte) (digits[j]));
+        }
+        sum = Integer.parseInt(out1) + Integer.parseInt(out2);
+
+        outSum = String.valueOf(sum);
+
+        if (digits.length < outSum.length()) {
+            ok = false;
+            for (int l = 0; l < digits.length; l++) {
+                digits[l] = 0;
+            }
+        } else {
+            fromString(outSum);
+        }
+        return ok;
+    }
     public static void main(String[] args) {
-        ArrayInteger arrayInteger = new ArrayInteger(4);
-        arrayInteger.fromString("1230");
-        System.out.println(Arrays.toString(arrayInteger.digits));
-        System.out.println(arrayInteger);
-
         ArrayInteger num = new ArrayInteger(10);
-        System.out.println(num);
+        System.out.println("Новый объект размер 10 -- "+num);
         num.fromString("10");
-        System.out.println(Arrays.toString(num.digits));
-        System.out.println(num);
+        System.out.println("Поместили число 10. Поэлементно -- "+Arrays.toString(num.digits));
+        System.out.println("Оно же --"+num);
         ArrayInteger num3 = new ArrayInteger(4);
         num3.fromString("90");
-        System.out.println(num3);
+        System.out.println("Другой объект == 90 -- "+num3);
         num.add(num3);
-        System.out.println(num);
+        System.out.println("Сложил своим методом:  "+num);
+
+        num.add2(num3);
+        System.out.println("Метод О.Таран add2 = "+num);
+
     }
 }
