@@ -1,0 +1,38 @@
+ Item 6 get  by user 4 (owner) without comments
+  GET http://localhost:8080/items/4
+  200 OK ★ 11ms time ★ 254B↑ 344B↓ size ★ 8↑ 5↓ headers ★ 0 cookies
+  ┌ ↓ application/json ★ text ★ json ★ utf8 ★ 180B
+  │ {"id":4,"userId":6,"name":"Кухонный стол","description
+  │ ":"Стол для празднования","available":true,"lastBookin
+  │ g":null,"nextBooking":null,"comments":[]}
+  └
+  prepare   wait    dns-lookup   tcp-handshake   transfer-start   download   process   total
+  1ms       277µs   (cache)      (cache)         7ms              2ms        42µs      11ms
+
+  1. Test item 'lastBooking.id' field
+  2. Test item 'lastBooking.bookerId' field
+  ✓  Test item 'nextBooking'
+  //=============================
+
+  ПРАВИЛЬНО
+   Item 6 get  by user 4 (owner) without comments
+    GET http://localhost:8080/items/4
+    200 OK ★ 15ms time ★ 254B↑ 408B↓ size ★ 8↑ 5↓ headers ★ 0 cookies
+    ┌ ↓ application/json ★ text ★ json ★ utf8 ★ 244B
+    │ {"id":4,"name":"Кухонный стол","description":"Стол для
+    │  празднования","available":true,"lastBooking":{"id":8,
+    │ "start":"2023-06-03T11:10:42","end":"2023-06-03T12:10:
+    │ 40","bookerId":1},"nextBooking":null,"comments":[]}
+    └
+    prepare   wait    dns-lookup   tcp-handshake   transfer-start   download   process   total
+    1ms       347µs   (cache)      (cache)         8ms              4ms        53µs      16ms
+
+    ✓  Status code is 200
+    ✓  Has item update response
+    ✓  Test item 'id' field
+    ✓  Test item 'name' field
+    ✓  Test item 'description' field
+    ✓  Test item 'available' field
+    ✓  Test item 'lastBooking.id' field
+    ✓  Test item 'lastBooking.bookerId' field
+    ✓  Test item 'nextBooking'

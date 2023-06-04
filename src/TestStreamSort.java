@@ -36,6 +36,10 @@ public class TestStreamSort {
         if (str == null || str.isBlank())
             System.out.println("Проверка прошла успешно");
     }
+
+    //======================
+    Set<Integer> set=new HashSet<>();
+    ArrayList<Integer> list=new ArrayList<>(set);
 }
 
 class Film {
