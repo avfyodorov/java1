@@ -49,6 +49,7 @@ public class MyCalendarPrint {
         printMonth(1, 2023);
         printMonth(2, 2023);
         printMonth(5, 2023);
+        printMonth(7, 1976);
 
     }
 }

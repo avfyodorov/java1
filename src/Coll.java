@@ -21,4 +21,8 @@ public class Coll
     Set<Integer>set5=new LinkedHashSet<>(list);
     *///System.out.println(set5.);
 //  }
+  public static void main(String[] args) {
+      String s="  ";
+      System.out.println(s.isEmpty()?"empty":"full");
+  }
 }

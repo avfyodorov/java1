@@ -66,6 +66,7 @@ public class MyFruitBox<T extends MyFruit> extends ArrayList<T> {
 
 //        System.out.println("Добавляю апельсин в пустую коробку из-под яблок: " + fbApple.add(myOrange));
         System.out.println("Добавляю яблоко в пустую коробку из-под яблок: " + fbApple.add(myApple));
+
         try {
             System.out.println("Было.  Oткуда:" + fbApple.size() + " Куда: " + fbAppleTest.size());
             fbApple.moveTo(fbAppleTest);

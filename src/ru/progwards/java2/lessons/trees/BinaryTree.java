@@ -7,19 +7,19 @@ public class BinaryTree<K extends Comparable<K>, V>  {
     private static final String KEYEXIST = "Key already exist";
     private static final String KEYNOTEXIST = "Key not exist";
 
-    class TreeLeaf<K extends Comparable<K>, V> {
+    public static class TreeLeaf<K extends Comparable<K>, V> {
         K key;
         V value;
-        TreeLeaf parent;
-        TreeLeaf left;
-        TreeLeaf right;
+        TreeLeaf<K, V> parent;
+        TreeLeaf<K, V> left;
+        TreeLeaf<K, V> right;
 
         public TreeLeaf(K key, V value) {
             this.key = key;
             this.value = value;
         }
 
-        private TreeLeaf<K,V> find(K key) {
+        private TreeLeaf<K, V> find(K key) {
             int cmp = key.compareTo(this.key);
             if (cmp > 0)
                 if (right != null)
@@ -81,7 +81,7 @@ public class BinaryTree<K extends Comparable<K>, V>  {
     public V find(K key) {
         if (root == null)
             return null;
-        TreeLeaf found = root.find(key);
+        TreeLeaf<K, V> found = root.find(key);
         return found.key.compareTo(key) == 0 ? (V)found.value : null;
     }
 
@@ -104,7 +104,7 @@ public class BinaryTree<K extends Comparable<K>, V>  {
         if (root == null)
             throw new TreeException(KEYNOTEXIST);
 
-        TreeLeaf found = root.find(key);
+        TreeLeaf<K, V> found = root.find(key);
         int cmp = found.key.compareTo(key);
         if (cmp != 0)
             throw new TreeException(KEYNOTEXIST);

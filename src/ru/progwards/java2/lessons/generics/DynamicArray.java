@@ -58,7 +58,6 @@ public class DynamicArray<T> {
       }
       array[numberOfItems++] = item;
    }
-
    private void checkPosition(int pos) {
       if (pos >= numberOfItems) {
          throw new RuntimeException("Позиция " + pos + " больше, чем длина " + numberOfItems + " массива");
