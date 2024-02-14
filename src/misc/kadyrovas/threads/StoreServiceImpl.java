@@ -1,5 +1,5 @@
 package misc.kadyrovas.threads;
-;
+
 
 import java.util.Arrays;
 
