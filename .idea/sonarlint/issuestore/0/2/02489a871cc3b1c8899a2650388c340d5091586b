@@ -1,0 +1,30 @@
+
+]	java:S125"<This block of commented-out lines of code should be removed.(£•‘òıÿÿÿÿ8’ÛÙ†Ù/
+U	java:S106"9Replace this use of System.out or System.err by a logger.(Âìò´8—ÛÙ†Ù/
+Z	java:S1063"9Replace this use of System.out or System.err by a logger.(Æˆüÿÿÿÿ8œÛÙ†Ù/
+U	java:S106A"9Replace this use of System.out or System.err by a logger.(“¿íÕ8ÛÙ†Ù/
+Z	java:S106]"9Replace this use of System.out or System.err by a logger.(¶„Íÿÿÿÿÿ8¢ÛÙ†Ù/
+Z	java:S106^"9Replace this use of System.out or System.err by a logger.(´ö€ãúÿÿÿÿ8£ÛÙ†Ù/
+Z	java:S106_"9Replace this use of System.out or System.err by a logger.(§ßøºÿÿÿÿÿ8£ÛÙ†Ù/
+U	java:S106b"9Replace this use of System.out or System.err by a logger.(¬‚éÿ8¤ÛÙ†Ù/
+Z	java:S106d"9Replace this use of System.out or System.err by a logger.(¶„Íÿÿÿÿÿ8¥ÛÙ†Ù/
+Z	java:S106e"9Replace this use of System.out or System.err by a logger.(´ö€ãúÿÿÿÿ8¥ÛÙ†Ù/
+Z	java:S106h"9Replace this use of System.out or System.err by a logger.(Åğ†½ûÿÿÿÿ8¦ÛÙ†Ù/
+Z	java:S106j"9Replace this use of System.out or System.err by a logger.(¶„Íÿÿÿÿÿ8¦ÛÙ†Ù/
+Z	java:S106k"9Replace this use of System.out or System.err by a logger.(§ßøºÿÿÿÿÿ8§ÛÙ†Ù/
+Z	java:S106n"9Replace this use of System.out or System.err by a logger.(Â“‹®øÿÿÿÿ8§ÛÙ†Ù/
+Z	java:S106q"9Replace this use of System.out or System.err by a logger.(¨¶ÑÍşÿÿÿÿ8¨ÛÙ†Ù/
+Z	java:S106t"9Replace this use of System.out or System.err by a logger.(¶„Íÿÿÿÿÿ8¨ÛÙ†Ù/
+Z	java:S106u"9Replace this use of System.out or System.err by a logger.(´ö€ãúÿÿÿÿ8©ÛÙ†Ù/
+h
+java:S1192]"FDefine a constant instead of duplicating this literal "box1=" 4 times.(¶„Íÿÿÿÿÿ8ªÛÙ†Ù/
+h
+java:S1192^"FDefine a constant instead of duplicating this literal "box2=" 3 times.(´ö€ãúÿÿÿÿ8ªÛÙ†Ù/
+[
+java:S1155">Use isEmpty() to check whether the collection is empty or not.(¨ˆ‰8«ÛÙ†Ù/
+[
+java:S1155-">Use isEmpty() to check whether the collection is empty or not.(¨ˆ‰8«ÛÙ†Ù/
+[
+java:S1155/">Use isEmpty() to check whether the collection is empty or not.(Ş™¯…8«ÛÙ†Ù/
+[
+java:S1155=">Use isEmpty() to check whether the collection is empty or not.(Ååîõ8«ÛÙ†Ù/

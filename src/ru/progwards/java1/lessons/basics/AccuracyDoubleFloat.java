@@ -1,5 +1,7 @@
 package ru.progwards.java1.lessons.basics;
 
+import java.util.ArrayList;
+
 public class AccuracyDoubleFloat
 {
   static final double PI = 3.14;
@@ -12,6 +14,8 @@ public class AccuracyDoubleFloat
     System.out.println("" + volumeBallDouble(EARTH));
     System.out.println("" + volumeBallFloat(EARTH_F));
     System.out.println("" + calculateAccuracy(EARTH));
+    ArrayList<String> l=new ArrayList<>();
+    l.clear();
   }
 
   public static double volumeBallDouble(double radius)

@@ -1,0 +1,18 @@
+
+g	java:S112#"FDefine and throw a dedicated exception instead of using a generic one.(‹È‚Óşÿÿÿÿ8²©¢Ù/
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ÙŞÜèûÿÿÿÿ8´©¢Ù/
+Q
+java:S3740"/Provide the parametrized type for this generic.(ÙŞÜèûÿÿÿÿ8¶©¢Ù/
+Q
+java:S3740'"/Provide the parametrized type for this generic.(¡‡Ú¢ûÿÿÿÿ8¶©¢Ù/
+U	java:S106"9Replace this use of System.out or System.err by a logger.(¸Èñğ8ÿ©¢Ù/
+J
+java:S1905"(Remove this unnecessary cast to "Fruit".(Ê£´Äüÿÿÿÿ8ª¢Ù/
+U	java:S1062"9Replace this use of System.out or System.err by a logger.(éÕÎ‘8£ª¢Ù/
+U	java:S1063"9Replace this use of System.out or System.err by a logger.(ÈñÅÎ8¤ª¢Ù/
+Z	java:S1064"9Replace this use of System.out or System.err by a logger.(õ´û”ùÿÿÿÿ8¥ª¢Ù/
+U	java:S1065"9Replace this use of System.out or System.err by a logger.(ÀÜ¹8¥ª¢Ù/
+Z	java:S106:"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ8¨ª¢Ù/
+U	java:S106<"9Replace this use of System.out or System.err by a logger.(éÕÎ‘8©ª¢Ù/
+U	java:S106="9Replace this use of System.out or System.err by a logger.(ÈñÅÎ8ªª¢Ù/
+Z	java:S106A"9Replace this use of System.out or System.err by a logger.(©şêÜúÿÿÿÿ8«ª¢Ù/

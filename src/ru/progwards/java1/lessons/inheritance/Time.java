@@ -1,5 +1,8 @@
 package ru.progwards.java1.lessons.inheritance;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Автор: Фёдоров Александр
  * Дата:  21.11.2022  11:52
@@ -34,6 +37,10 @@ public class Time {
         return h + ":" + m + ":" + s;
     }
 
+    public String toStr() {//комментариии
+        return String.format("%1$02d:%2$02d:%3$02d", hours, minutes, seconds);
+    }
+
     public int toSeconds() {
         return hours * 60 * 60 + minutes * 60 + seconds;
     }
@@ -47,6 +54,9 @@ public class Time {
     }
 
     public static void main(String[] args) {
-
+        Time tm = new Time(1, 5, 55);
+        System.out.println(tm.toStr());
     }
+
+
 }

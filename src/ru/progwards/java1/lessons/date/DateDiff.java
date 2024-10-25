@@ -5,9 +5,7 @@ package ru.progwards.java1.lessons.date;
  * Дата:  19.03.2022  12:01
  */
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class DateDiff {
 
@@ -109,8 +107,7 @@ public class DateDiff {
    public static void main(String[] args) {
       Date d1 = new Date(4444444444l);
       Date d2 = new Date(3333333333l);
-      Date d3 = new Date();
-      Date d4 = new Date(1660165200000l);
+       Date d4 = new Date(1660165200000l);
 
       //System.out.println(d4);
       //timeBetween(d1, d2);

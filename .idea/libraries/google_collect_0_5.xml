@@ -2,6 +2,7 @@
   <library name="google-collect-0.5">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../../../../Programs/jars/google-collect-0.5.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -14,8 +14,8 @@ public class Aa01 {
         return s2;
     }
 
-    public static String intValue2(String variable, int value) {
-        String s2 = STR."Значение \{variable} равно \{value}";
-        return s2;
-    }
+//    public static String intValue2(String variable, int value) {
+//        String s2 = STR."Значение \{variable} равно \{value}";
+//        return s2;
+//    }
 }

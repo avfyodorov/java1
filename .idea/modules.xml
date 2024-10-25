@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/01 Rock.iml" filepath="$PROJECT_DIR$/01 Rock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gsonproba/gsonproba.iml" filepath="$PROJECT_DIR$/gsonproba/gsonproba.iml" />
     </modules>
   </component>
 </project>

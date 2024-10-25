@@ -115,7 +115,4 @@ public class CyclesGoldenFibo {
                         ||    ((c == b) && (V1 <= ba) && (V2 >= ba))
                       );
    }
-
-
-
 }

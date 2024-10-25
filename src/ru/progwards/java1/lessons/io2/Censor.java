@@ -67,6 +67,7 @@ public class Censor {
       StringBuilder text = new StringBuilder();
       // читаем файл в строку
       try (FileReader fr = new FileReader(inoutFileName)) {
+
          Scanner sc = new Scanner(fr);
          while (sc.hasNextLine()) {
             text.append(sc.nextLine());
