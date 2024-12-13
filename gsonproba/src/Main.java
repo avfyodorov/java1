@@ -3,6 +3,10 @@ import com.google.gson.GsonBuilder;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Автор: Фёдоров Александр
@@ -21,6 +25,15 @@ public class Main {
 
         Task newTask = gson.fromJson(json, Task.class);
         System.out.println("Обратно - " + newTask);
+
+        Map<Integer,Task> tm=new HashMap<>();
+        opa();
+
+    }
+
+    private static void opa() {
+        List<String> sl = new ArrayList<>();
+        sl.add("mmm");
     }
 
     public static Gson getGson() {
